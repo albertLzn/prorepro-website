@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <link rel="preload" as="font" href="../public/proreprologo.png"  crossorigin="anonymous">
+    <link rel="preload" as="font" href="../public/proreprologo2024.png"  crossorigin="anonymous">
     <Default>
       <router-view />
     </Default>
@@ -9,11 +9,12 @@
 
 <script>
 import Default from "@/layouts/Default.vue";
-let images = ['./assets/bg-prorepro.jpeg', '../public/proreprologo.png']
+let images = ['./assets/bg-prorepro.jpeg', '../public/proreprologo2024.png']
 export default {
   components: {
     Default
-  }
+  },
+ 
 };
 </script>
 

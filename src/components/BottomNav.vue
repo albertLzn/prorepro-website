@@ -16,7 +16,7 @@
         
 
       <div
-        class="adress-card bg-secondary text-white mx-auto items-center  flex flex-col justify-center rounded-lg mt-6 p-3"
+        class="adress-card bg-secondary text-white mx-auto items-center  flex flex-col justify-center rounded-lg p-3"
       >
         <div
           class="flex  p-1 fl cursor-pointer"
@@ -117,7 +117,7 @@ components: {VFooter, VCard,VCardText, VBtn, VIcon, VDivider},
 }
 
 .bg-secondary-override {
-  background-color: #EDBBD0 !important;
+  background-color: #68C9BA !important;
 }
 .contact-container {
   background-color: rgba(0,0,0,0.4  );

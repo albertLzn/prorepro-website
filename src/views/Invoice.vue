@@ -88,8 +88,7 @@
          :disabled="hasErrors || loading" 
          class="
            submit-button text-white font-bold py-2 px-4 rounded w-full" 
-         :class="{ 'bg-grey': hasErrors, 'bg-secondary hover:bg-secondaryDarker': !hasErrors }" 
-         @click.prevent.stop.handleSubmit>
+         :class="{ 'bg-grey': hasErrors, 'bg-secondary hover:bg-secondaryDarker': !hasErrors }" @click.prevent="handleSubmit">
          <div class='spinner' v-if='loading' />
          <span v-if='!loading'>Envoyer</span>
        </button>
@@ -139,10 +138,11 @@ export default {
        { hid: 'devis', name: 'devis', content: 'Demande de devis en ligne' }
      ],
    },
-   mounted() {
-     const nextDiv = document.getElementById('top-invoice');
-     nextDiv.scrollIntoView({ behavior: 'smooth', top:'nearest' });
-   },
+mounted() {
+  emailjs.init('yzdSZ5ZiXmjUBUrYe');
+  const nextDiv = document.getElementById('top-invoice');
+  nextDiv.scrollIntoView({ behavior: 'smooth' });
+},
    data() {
      return {
        types,
@@ -179,44 +179,43 @@ export default {
      }
    },
    methods:{
-     async handleSubmit() {
-       try {
-         this.loading = true;
+    async handleSubmit() {
+    try {
+      this.loading = true;
+      
+      const templateParams = {
+        company_name: this.form.company,
+        from_name: this.form.name,
+        from_email: this.form.email,
+        address: this.form.address,
+        postal_code: this.form.postalCode,
+        city: this.form.city,
+        tva_number: this.form.tva || "N/A",
+        request_type: this.form.type,
+        comment: this.form.comment || "N/A",
+      };
 
-         // Préparez les paramètres pour l'envoi de l'email
-         const params = {
-           company_name:this.form.company,
-           from_name:this.form.name,
-           from_email:this.form.email,
-           address:this.form.address,
-           postal_code:this.form.postalCode,
-           city:this.form.city,
-           tva_number:this.form.tva || "N/A",
-           request_type:this.form.type,
-           comment:this.form.comment || "N/A",
-         };
+      const response = await emailjs.send(
+        'service_tlnepz8', 
+        'template_kz0qb9q', 
+        templateParams, 
+        'yzdSZ5ZiXmjUBUrYe'
+      );
 
-         // Envoyez l'email en utilisant EmailJS
-         const response = await emailjs.send(
-           'YOUR_SERVICE_ID', // Remplacez par votre service ID
-           'YOUR_TEMPLATE_ID', // Remplacez par votre template ID
-           params,
-           'YOUR_USER_ID' // Remplacez par votre user ID
-         );
-
-         if (response.status ===200) {
-           this.sentSucceed=true;
-           this.sent=true;
-         } else {
-           throw new Error('Erreur lors de l\'envoi');
-         }
-       } catch (error) {
-         console.error('Erreur:', error);
-         this.sentFailed=true;
-       } finally {
-         this.loading=false;
-       }
-     }
+      if (response.status === 200) {
+        this.sentSucceed = true;
+        this.sent = true;
+        this.form = initForm();
+      } else {
+        throw new Error('Erreur lors de l\'envoi');
+      }
+    } catch (error) {
+      console.error('Erreur:', error);
+      this.sentFailed = true;
+    } finally {
+      this.loading = false;
+    }
+  }
    }
 };
 </script>

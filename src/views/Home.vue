@@ -1,32 +1,11 @@
 <template>
   <div >
-   <div class="carousel-cont mx-auto container flex ">
-       <v-carousel height="300"  style="font-family: 'Rubik', sans-serif;"  :show-arrows="false" cycle interval='3250'>
-    <v-carousel-item
-      v-for="(item,i) in items"
-      :key="i"
-      :src="item.src"
-      reverse-transition="fade-transition"
-      transition="fade-transition"
-      
-    >
-
-    
-<div class="text-h2 carousel-msg">
-  <h2 class="text-center p-6 laurentlefdp">
-    {{item.message}}
-  </h2>
-            </div>
-     
-    </v-carousel-item>
-  </v-carousel>
-      </div>
     <div
       class="grid paradis lg:grid-cols-5 md:grid-cols-3 grid-cols-1 md:mx-auto bg-main pt-2 py-md-5"
     >
     
       <Category
-        class="p-8 m-6"
+        class="p-10"
         v-for="(category, i) in categories"
         :key="i"
         :title="category.title"
@@ -34,6 +13,7 @@
         :id="category.id"
         :shortTitle="category.shortTitle"
         :show-button="true"
+        :isNav="false"
       ></Category>
     </div>
 
@@ -155,6 +135,7 @@ export default {
 
 .paradis {
   background-color: rgba(0,0,0,0.35);
+  margin-top: -44px;
 }
 
 .carousel-msg {
@@ -169,3 +150,5 @@ export default {
   background-color: rgba(0, 0, 0, 0.35);
 }
 </style>
+
+

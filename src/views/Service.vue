@@ -1,75 +1,83 @@
 <template>
-  <div class="service-container mt-20">
+  <div class="service-container">
     <div id="top-services"></div>
-    <div 
-      class="row grid  grid-cols-3  md:grid-cols-5  xl:grid-cols-10 row p-4 mb-2 "
-    >
+    
+    <!-- Navigation des services -->
+    <div class="services-nav">
       <Category
-        :key="i"
-        v-for="(category, i) in categories"
-        :showButton="false"
-        class="icon"
-        :title="category.title"
-        :imgSrc="category.icon"
-                :shortTitle="category.shortTitle"
-        :id="category.id"
-      ></Category>
+  v-for="(category, i) in categories"
+  :key="i"
+  :showButton="false"
+  :title="category.title"
+  :imgSrc="category.icon"
+  :shortTitle="category.shortTitle"
+  :id="category.id"
+  :class="{ 'active': category.id === serviceId }"
+  :isNav="true"
+  class="service-icon"
+/>
     </div>
 
-    <div
-      class="row container lossa text-center mx-auto grid  grid-cols-1 items-center  p-2 m-2"
-    >
-      <div class="mx-auto text-xl  ">
-        <div class="text-center  mb-5 ">
-          <div>
-            <span class="text-5xl  tepu title font-bold mukta	">{{
-              service.title
-              }}</span>
+    <!-- Contenu du service -->
+    <div class="service-content">
+      <!-- Service Principal -->
+      <div class="service-section">
+        <h1 class="service-title">{{ service.title }}</h1>
+        
+        <div class="service-media">
+          <img 
+            :src="service.imgSrc" 
+            :alt="service.title"
+            class="service-image"
+          />
+        </div>
+
+        <div class="service-details">
+          <p class="service-description">{{ service.description }}</p>
+
+          <div v-if="service.formats" class="formats-section">
+            <h2>Formats disponibles</h2>
+            <div class="formats-grid">
+              <div v-for="format in service.formats" 
+                   :key="format" 
+                   class="format-item">
+                {{ format }}
+              </div>
+            </div>
           </div>
-        </div>
 
-        <img :src="service.imgSrc" class="bg-primary mx-auto image mb-8 self-center" />
-
-        <span class="description">{{ service.description }}</span>
-        <div v-if="service.formats" class="mt-8">
-          <span class="font-bold	 mukta">Formats:</span>
-          <ul>
-            <li v-bind:key="format" v-for="format in service.formats">
-              {{ format }}
-            </li>
-          </ul>
-        </div>
-
-        <div v-if="service.addon" class="mt-8 flex flex-col">
-          <span class="font-bold	mukta mb-5">{{
-            Object.keys(service.addon)[0]
-          }}</span>
-          <span class="">{{ Object.values(service.addon)[0] }}</span>
+          <div v-if="service.addon" class="addon-section">
+            <h2>{{ Object.keys(service.addon)[0] }}</h2>
+            <p>{{ Object.values(service.addon)[0] }}</p>
+          </div>
         </div>
       </div>
 
-
-
-
-      <div v-if="service.multiple" class="mx-auto text-xl mt-6  ">
-        <div class="text-center  mb-5 ">
-          <div>
-            <span class="text-5xl  tepu title font-bold mukta	">{{
-                service.otherTitle
-              }}</span>
-          </div>
+      <!-- Service Additionnel -->
+      <div v-if="service.multiple" class="service-section additional">
+        <h2 class="service-title">{{ service.otherTitle }}</h2>
+        
+        <div class="service-media">
+          <img 
+            :src="service.otherImg" 
+            :alt="service.otherTitle"
+            class="service-image"
+          />
         </div>
 
-        <img :src="service.otherImg" class="bg-primary mx-auto image mb-8 self-center" />
+        <div class="service-details">
+          <p class="service-description">{{ service.otherDescr }}</p>
 
-        <span class="description">{{ service.otherDescr }}</span>
-        <div v-if="service.otherFormats" class="mt-8">
-          <span class="font-bold	 mukta">Formats:</span>
-          <ul>
-            <li v-bind:key="format" v-for="format in service.otherFormats">
-              {{ format }}
-            </li>
-          </ul>
+          <div v-if="service.otherFormats" class="formats-section">
+            <h2>Formats disponibles</h2>
+            <div class="formats-grid">
+              <div v-for="format in service.otherFormats" 
+                   :key="format" 
+                   class="format-item">
+                {{ format }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -259,14 +267,144 @@ export default {
 };
 </script>
 
-<style scoped>
-
-.lossa {
-  max-width: 700px;
-  background-color: rgba(0,0,0,0.5);
+<style lang="scss" scoped>
+.service-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.tepu {
-  -webkit-text-stroke: 1px white;
+.services-nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+
+  .service-icon {
+    transition: all 0.3s ease;
+    
+    &.active {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 10px rgba(237, 187, 208, 0.5));
+    }
+  }
+}
+
+.service-content {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 2rem;
+  color: white;
+}
+
+.service-section {
+  margin-bottom: 4rem;
+  
+  &.additional {
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+.service-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+  background: linear-gradient(45deg, #68c9ba, #EDBBD0);
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+.services-nav {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 0.5rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.service-media {
+  margin-bottom: 2rem;
+  
+  .service-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 1rem;
+    margin: 0 auto;
+    display: block;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+}
+
+.service-details {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.service-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  white-space: pre-line;
+}
+
+.formats-section, .addon-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-top: 2rem;
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #68c9ba;
+  }
+}
+
+.formats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.format-item {
+  background: rgba(104, 201, 186, 0.1);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(104, 201, 186, 0.2);
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 768px) {
+  .service-container {
+    padding: 1rem;
+  }
+  
+  .service-title {
+    font-size: 2rem;
+  }
+  
+  .services-nav {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    padding: 1rem;
+  }
 }
 </style>

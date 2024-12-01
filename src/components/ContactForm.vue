@@ -174,9 +174,29 @@ export default {
   border-top-color: #000;
   animation: spinner 0.6s linear infinite;
 }
-
 .validation-text {
-  color: green;
+  background: rgba(104, 201, 186, 0.1);
+  color: #68c9ba;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(104, 201, 186, 0.2);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .error-text {
