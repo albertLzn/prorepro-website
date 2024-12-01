@@ -1,0 +1,33 @@
+{
+  "name": "prorepro",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --mode production",
+    "lint": "vue-cli-service lint",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@braid/vue-formulate": "^2.5.0",
+    "@nuxtjs/vuetify": "^1.12.1",
+    "axios": "^0.20.0",
+    "core-js": "^3.6.5",
+    "emailjs-com": "^3.2.0",
+    "material-design-icons-iconfont": "^6.1.1",
+    "nuxt-seo": "^1.5.0",
+    "tailwindcss": "^1.8.6",
+    "vue": "^2.6.11",
+    "vue-router": "^3.2.0",
+    "vue-scrollto": "^2.20.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "prettier": "^1.19.1",
+    "sass": "^1.81.0",
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "^2.6.11"
+  }
+}

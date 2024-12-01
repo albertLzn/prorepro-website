@@ -1,0 +1,23 @@
+@import '@braid/vue-formulate/themes/snow/snow.scss';
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@800&display=swap');
+
+html, body {
+  font-family: 'Rubik', sans-serif;
+}
+
+.mukta {
+  font-family: 'Mukta', sans-serif;
+}
+
+
+* {
+  color: white;
+}
+
+.v-carousel {
+  border-radius: 15px !important;
+}
