@@ -1,14 +1,11 @@
 <template>
-  <div id="top-contact"
-    class="contact-container mt-20 flex flex-col items-center sm:flex-row card-map p-6"
-  >
+  <div id="top-contact" class="contact-container mt-20 flex flex-col items-center sm:flex-row card-map p-6">
     <div class="img-box rounded-lg">
       <img
         class="rounded cursor-pointer"
         src="@/assets/mapview.png"
         @click="openMapView"
       />
-
     </div>
     <ContactForm class="contact-box" />
   </div>
@@ -19,17 +16,16 @@ export default {
   components: {
     ContactForm: () => import("@/components/ContactForm.vue")
   },
-   head: {
+  head: {
     title: 'Home page',
-     meta: [
-        { hid: 'contact', name: 'contact', content: 'Page formulaire de contact prorepro' }
-      ],
+    meta: [
+      { hid: 'contact', name: 'contact', content: 'Page formulaire de contact prorepro' }
+    ],
   },
-  mounted(){
-                const nextDiv = document.getElementById('top-contact')
-                nextDiv.scrollIntoView({behavior: 'smooth',  top:'nearest' })
+  mounted() {
+    const nextDiv = document.getElementById('top-contact');
+    nextDiv.scrollIntoView({ behavior: 'smooth', top: 'nearest' });
   },
-     
   methods: {
     openMapView() {
       window.open(
@@ -47,8 +43,7 @@ export default {
 
 <style lang="scss" scoped>
 .contact-container {
-  // height: 100vh;
-  background-color: rgba(0,0,0,0.4  );
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .img-box {
