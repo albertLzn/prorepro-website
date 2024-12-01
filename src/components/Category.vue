@@ -5,7 +5,7 @@
         <img v-if="imgSrc" :src="imgSrc" :alt="shortTitle" class="category-image" />
         <div class="image-overlay" :class="{ 'overlay-active': isHovered }">
           <div class="overlay-content">
-            <h2 class="category-title">{{ shortTitle.toUpperCase() }}</h2>
+            <h2 class="category-title" :style="{ fontSize: titleFontSize }">{{ shortTitle.toUpperCase() }}</h2>
             <!-- Suppression de l'icône circulaire -->
           </div>
         </div>
@@ -49,6 +49,9 @@ export default {
   }),
 
   computed: {
+    titleFontSize() {
+      return this.isNav ? '14px' : 'calc(15px + 0.390625vw)'
+    },
     getCategoryIcon() {
       const icons = {
         copy: 'mdi-content-copy',
@@ -152,52 +155,30 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  
   &.overlay-active {
     opacity: 1;
   }
-  .nav-mode & {
-    border-radius: 50%;
-    padding: 0.5rem;
-    
-    .overlay-content {
-      transform: scale(0.6);
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      
-      .category-title {
-        font-size: 0.75rem;
-      }
-    }
-  }
 }
+
 
 .overlay-content {
   text-align: center;
   color: white;
-  transform: translateY(20px);
-  transition: transform 0.4s ease;
   padding: 1rem;
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(4px);
   border-radius: 8px;
-  width: 80%;
-
-  .overlay-active & {
-    transform: translateY(0);
-  }
+  width: fit-content;
+  max-width: 80%;
 }
 
+
 .category-title {
-  font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 1px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
 .action-button {
   margin: 0 auto; // Centre le bouton
   padding: 0.5rem 2rem; // Augmente légèrement le padding horizontal

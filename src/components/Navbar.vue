@@ -8,15 +8,43 @@
         </router-link>
 
         <div class="navbar-links" :class="{ 'hidden': isMobile }">
-          <router-link 
-            v-for="item in menuItems" 
-            :key="item.path"
-            :to="item.path"
-            class="nav-link"
-            :class="{ 'active': $route.path === item.path }"
-          >
-            {{ item.name }}
-          </router-link>
+          <template v-for="item in menuItems">
+            <!-- Item Services avec Dropdown -->
+            <div v-if="item.name === 'Nos services'" 
+                 class="nav-item-wrapper"
+                 @mouseover="showDropdown = true"
+                 @mouseleave="showDropdown = false">
+              <router-link 
+                :to="item.path"
+                class="nav-link"
+                :class="{ 'active': $route.path === item.path }"
+              >
+                {{ item.name }}
+              </router-link>
+              
+              <!-- Dropdown Menu -->
+              <div v-show="showDropdown" class="services-dropdown">
+                <div class="dropdown-grid">
+                  <Category 
+                    v-for="category in categories"
+                    :key="category.id"
+                    v-bind="category"
+                    :isNav="true"
+                  />
+                </div>
+              </div>
+            </div>
+            
+            <!-- Autres items du menu -->
+            <router-link 
+              v-else
+              :to="item.path"
+              class="nav-link"
+              :class="{ 'active': $route.path === item.path }"
+            >
+              {{ item.name }}
+            </router-link>
+          </template>
         </div>
 
         <!-- Hamburger pour mobile -->
@@ -68,18 +96,75 @@
 </template>
 
 <script>
+import Category from './Category.vue'
+
 export default {
   name: 'Navbar',
-  
+  components: {
+    Category
+  },
   data: () => ({
     isDrawerOpen: false,
     hasScrolled: false,
     isMobile: false,
+    showDropdown: false,
     menuItems: [
       { name: 'Accueil', path: '/', icon: 'mdi-home' },
       { name: 'Nos services', path: '/service', icon: 'mdi-briefcase' },
       { name: 'Demande de Devis', path: '/invoice', icon: 'mdi-file-document' },
       { name: 'Contact', path: '/contact', icon: 'mdi-email' }
+    ],
+    categories: [
+      {
+        imgSrc: require("@/assets/copy.png"),
+        id: "copy",
+        shortTitle: "Photo\ncopies"
+      },
+      {
+        imgSrc: require("@/assets/affiche.png"),
+        id: "affiche",
+        shortTitle: "Affiches"
+      },
+      {
+        imgSrc: require("@/assets/design.png"),
+        id: "design",
+        shortTitle: "Design"
+      },
+      {
+        imgSrc: require("@/assets/plastic.png"),
+        id: "plastic",
+        shortTitle: "Reliures"
+      },
+      {
+        imgSrc: require("@/assets/poster.png"),
+        id: "poster",
+        shortTitle: "Posters"
+      },
+      {
+        imgSrc: require("@/assets/gift.png"),
+        id: "gift",
+        shortTitle: "Cadeaux"
+      },
+      {
+        imgSrc: require("@/assets/card.png"),
+        id: "card",
+        shortTitle: "Cartes"
+      },
+      {
+        imgSrc: require("@/assets/tirage.png"),
+        id: "tirage",
+        shortTitle: "Photos"
+      },
+      {
+        imgSrc: require("@/assets/mug.png"),
+        id: "mug",
+        shortTitle: "Mug"
+      },
+      {
+        imgSrc: require("@/assets/stamp.png"),
+        id: "stamp",
+        shortTitle: "Tampons"
+      }
     ]
   }),
 
@@ -116,6 +201,39 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+
+.services-dropdown {
+  position: absolute;
+  top: calc(100% - 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  min-width: 600px;
+  margin-top: 0.5rem;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid white;
+  }
+}
+
+.dropdown-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
 .navbar {
   position: fixed;
   top: 0;
@@ -153,7 +271,19 @@ backdrop-filter: blur(10px);
   gap: 2rem;
 }
 
+.nav-item-wrapper {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+
+
 .nav-link {
+  height: 100%;
+  display: flex;
+  align-items: center;
   color: #2c3e50;
   text-decoration: none;
   font-weight: 500;
@@ -262,7 +392,6 @@ backdrop-filter: blur(10px);
   text-decoration: none;
   border-radius: 0.5rem;
   transition: all 0.3s ease;
-
   &:hover, &.active {
     background: rgba(104, 201, 186, 0.1);
     color: #68c9ba;

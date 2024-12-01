@@ -40,7 +40,7 @@ export default {
   },
   mounted(){
                 const nextDiv = document.getElementById('top-home')
-                nextDiv.scrollIntoView({behavior: 'smooth',  top:'nearest' })
+                nextDiv.scrollIntoView({behavior: 'smooth',  block:'center' })
   },
   data: () => ({
       currentMsg: 0,
@@ -72,7 +72,7 @@ export default {
       {
         imgSrc: require("@/assets/copy.png"),
         id: "copy",
-        shortTitle: "Photocopies"
+        shortTitle: "Photo\ncopies"
       },
       {
         imgSrc: require("@/assets/affiche.png"),

@@ -98,7 +98,7 @@ export default {
   components: { Category },
   mounted(){
                 const nextDiv = document.getElementById('top-services')
-                nextDiv.scrollIntoView({behavior: 'smooth',  top:'nearest' })
+                nextDiv.scrollIntoView({behavior: 'smooth',  block:'center' })
   },
   data() {
     return {
@@ -327,7 +327,7 @@ export default {
   gap: 0.5rem;
   
   @media (max-width: 768px) {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -402,9 +402,5 @@ export default {
     font-size: 2rem;
   }
   
-  .services-nav {
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    padding: 1rem;
-  }
 }
 </style>
