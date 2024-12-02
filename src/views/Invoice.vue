@@ -1,7 +1,8 @@
 <template>
-  <div id="top-invoice" class="contact-form-box mt-10 flex flex-col rounded-lg mx-auto">
-    <div class="text-4xl mb-5 protitle text-center">Devis en ligne</div>
-    <div class='bg-acr' v-show="!sent">
+  <main id="top-invoice" class="contact-form-box mt-10 flex flex-col rounded-lg mx-auto">
+    <h1 class="text-4xl mb-5 protitle text-center">Devis en ligne</h1>
+    
+    <form class='bg-acr' v-show="!sent" role="form" aria-label="Formulaire de devis">
       <FormulateInput
         v-model="form.company"
         type="text"
@@ -28,6 +29,7 @@
           required: 'Le nom est requis'
         }"
         class="form-input"
+        aria-required="true"
       />
       <FormulateInput
         v-model="form.email"
@@ -41,6 +43,7 @@
           email: 'Entrez un email valide'
         }"
         class="form-input"
+        aria-required="true"
       />
       <FormulateInput
         v-model="form.address"
@@ -52,6 +55,7 @@
           required: `L'adresse est requise`
         }"
         class="form-input"
+        aria-required="true"
       />
       <FormulateInput
         v-model="form.postalCode"
@@ -65,6 +69,7 @@
           max: 'Code postal invalide'
         }"
         class="form-input"
+        aria-required="true"
       />
       <FormulateInput
         v-model="form.city"
@@ -76,22 +81,28 @@
           required: 'La ville est requise'
         }"
         class="form-input"
+        aria-required="true"
       />
-      <div class="project-types">
-  <label class="project-label">Type de projet *</label>
-  <div class="types-grid">
-    <div
-      v-for="type in types"
-      :key="type.id"
-      class="type-card"
-      :class="{ active: form.type === type.id }"
-      @click="form.type = type.id"
-    >
-      <i :class="type.icon"></i>
-      <span>{{ type.name }}</span>
-    </div>
-  </div>
-</div>
+
+      <fieldset class="project-types">
+        <legend class="project-label">Type de projet *</legend>
+        <div class="types-grid" role="radiogroup">
+          <div
+            v-for="type in types"
+            :key="type.id"
+            class="type-card"
+            :class="{ active: form.type === type.id }"
+            @click="form.type = type.id"
+            role="radio"
+            :aria-checked="form.type === type.id"
+            tabindex="0"
+          >
+            <i :class="type.icon" aria-hidden="true"></i>
+            <span>{{ type.name }}</span>
+          </div>
+        </div>
+      </fieldset>
+
       <FormulateInput
         v-if="form.type"
         v-model="form.quantity"
@@ -99,6 +110,7 @@
         label="Quantité souhaitée *"
         validation="required|min:1"
         class="form-input"
+        aria-required="true"
       />
       <FormulateInput
         v-if="form.type"
@@ -108,6 +120,7 @@
         :options="formats"
         validation="required"
         class="form-input"
+        aria-required="true"
       />
       <FormulateInput
         v-if="form.type"
@@ -116,6 +129,7 @@
         label="Date souhaitée *"
         validation="required"
         class="form-input"
+        aria-required="true"
       />
       <FormulateInput
         v-model="form.files"
@@ -133,22 +147,34 @@
         label="Précisions supplémentaires"
         class="form-input"
       />
+      
       <PrinterSubmit 
-    :hasErrors="hasErrors"
-    :loading="loading"
-    @submit="handleSubmit"
-    ref="printerSubmit"
-  />
-    </div>
-    <div v-show='sentSucceed' class='validation-text text-center mt-2'>
+        :hasErrors="hasErrors"
+        :loading="loading"
+        @submit="handleSubmit"
+        ref="printerSubmit"
+        aria-label="Envoyer le devis"
+      />
+    </form>
+
+    <div 
+      v-show='sentSucceed' 
+      class='validation-text text-center mt-2'
+      role="alert"
+      aria-live="polite"
+    >
       Message envoyé !
     </div>
-    <div v-show='sentFailed' class='error-text text-center mt-2'>
+    <div 
+      v-show='sentFailed' 
+      class='error-text text-center mt-2'
+      role="alert"
+      aria-live="assertive"
+    >
       Erreur, merci d'essayer à nouveau
     </div>
-  </div>
+  </main>
 </template>
-
 <script>
 import emailjs from 'emailjs-com';
 import PrinterSubmit from '../components/PrinterSubmit.vue'
@@ -206,6 +232,19 @@ const initValidation = () => ({
 export default {
   head: {
   title: 'Devis Gratuit Impression & Reprographie - Prorepro Paris Voltaire',
+  script: [{
+      type: 'application/ld+json',
+      json: {
+        "@context": "https://schema.org",
+        "@type": "WebForm",
+        "name": "Formulaire de devis Pro Repro",
+        "url": "https://prorepro.fr/devis",
+        "provider": {
+          "@type": "LocalBusiness",
+          "name": "Pro Repro Paris"
+        }
+      }
+    }],
   meta: [
     { 
       hid: 'description', 

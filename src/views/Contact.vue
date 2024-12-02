@@ -1,38 +1,53 @@
 <template>
-  <div id="top-contact" class="contact-container flex flex-col items-center sm:flex-row p-6">
-    <div class="location-container">
-      <div class="info-card">
-        <h3 class="company-name">Pro Repro Paris</h3>
+  <main id="top-contact" class="contact-container flex flex-col items-center sm:flex-row p-6">
+    <section class="location-container">
+      <article class="info-card">
+        <h1 class="company-name">Pro Repro Paris</h1>
+        <address>
+          <div class="info-item">
+            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+            <span>128 Boulevard Voltaire, 75011 Paris</span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-phone" aria-hidden="true"></i>
+            <span>
+              <a href="tel:0183912352" aria-label="Appelez-nous">01 83 91 23 52</a>
+            </span>
+          </div>
+        </address>
         <div class="info-item">
-          <i class="fas fa-map-marker-alt"></i>
-          <span>128 Boulevard Voltaire, 75011 Paris</span>
-        </div>
-        <div class="info-item">
-          <i class="fas fa-phone"></i>
-          <span>01 83 91 23 52</span>
-        </div>
-        <div class="info-item">
-          <i class="fas fa-clock"></i>
-          <div class="schedule">
-            <div>Lundi - Vendredi : 9h - 19h</div>
-            <div>Samedi : 9h - 18h</div>
-            <div>Dimanche : 10h - 17h</div>
+          <i class="fas fa-clock" aria-hidden="true"></i>
+          <div class="schedule" role="list">
+            <div role="listitem">Lundi - Vendredi : 9h - 19h</div>
+            <div role="listitem">Samedi : 9h - 18h</div>
+            <div role="listitem">Dimanche : 10h - 17h</div>
           </div>
         </div>
-      </div>
-      <div class="map-box rounded-lg cursor-pointer" @click="openMapView">
+      </article>
+
+      <div 
+        class="map-box rounded-lg cursor-pointer" 
+        @click="openMapView"
+        role="button"
+        aria-label="Ouvrir dans Google Maps"
+      >
         <img
           class="rounded w-full h-[200px] object-cover"
           src="@/assets/mapview.png"
-          alt="Pro Repro Location"
-          loading="lazy" 
+          alt="Plan d'accès Pro Repro - 128 Boulevard Voltaire, 75011 Paris"
+          loading="lazy"
+          width="800"
+          height="200"
           title="Pro Repro Location Paris Voltaire 75011"
         />
       </div>
+    </section>
 
-    </div>
-    <ContactForm class="contact-box" />
-  </div>
+    <ContactForm 
+      class="contact-box" 
+      aria-label="Formulaire de contact"
+    />
+  </main>
 </template>
 
 <script>
@@ -42,6 +57,19 @@ export default {
   },
   head: {
   title: 'Contact - Pro Repro Paris Voltaire (75011)',
+  script: [{
+      type: 'application/ld+json',
+      json: {
+        "@context": "https://schema.org",
+        "@type": "WebForm",
+        "name": "Demande contact Pro Repro",
+        "url": "https://prorepro.fr/contact",
+        "provider": {
+          "@type": "LocalBusiness",
+          "name": "Pro Repro Paris"
+        }
+      }
+    }],
   meta: [
     { 
       hid: 'description', 

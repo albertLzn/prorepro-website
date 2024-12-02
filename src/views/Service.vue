@@ -1,91 +1,91 @@
 <template>
-  <div class="service-container">
-    <div id="top-services"></div>
-    
-    <!-- Navigation des services -->
-    <div class="services-nav">
+  <main class="service-container">
+    <nav id="top-services" class="services-nav" aria-label="Navigation des services">
       <Category
-  v-for="(category, i) in categories"
-  :key="i"
-  :showButton="false"
-  :title="category.title"
-  :imgSrc="category.icon"
-  :shortTitle="category.shortTitle"
-  :id="category.id"
-  :class="{ 'active': category.id === serviceId }"
-  :isNav="true"
-  class="service-icon"
-/>
-    </div>
+        v-for="(category, i) in categories"
+        :key="i"
+        :showButton="false"
+        :title="category.title"
+        :imgSrc="category.icon"
+        :shortTitle="category.shortTitle"
+        :id="category.id"
+        :class="{ 'active': category.id === serviceId }"
+        :isNav="true"
+        class="service-icon"
+      />
+    </nav>
 
-    <!-- Contenu du service -->
-    <div class="service-content">
-      <!-- Service Principal -->
-      <div class="service-section">
+    <article class="service-content">
+      <section class="service-section">
         <h1 class="service-title">{{ service.title }}</h1>
         
-        <div class="service-media">
+        <figure class="service-media">
           <img 
             :src="service.imgSrc" 
             :alt="service.title"
             class="service-image"
-            loading="lazy" 
-            :title="service.title" 
+            loading="lazy"
+            :title="service.title"
+            width="600"
+            height="350"
           />
-        </div>
+        </figure>
 
         <div class="service-details">
           <p class="service-description">{{ service.description }}</p>
 
-          <div v-if="service.formats" class="formats-section">
+          <section v-if="service.formats" class="formats-section">
             <h2>Formats disponibles</h2>
-            <div class="formats-grid">
+            <div class="formats-grid" role="list">
               <div v-for="format in service.formats" 
                    :key="format" 
-                   class="format-item">
+                   class="format-item"
+                   role="listitem">
                 {{ format }}
               </div>
             </div>
-          </div>
+          </section>
 
-          <div v-if="service.addon" class="addon-section">
+          <section v-if="service.addon" class="addon-section">
             <h2>{{ Object.keys(service.addon)[0] }}</h2>
             <p>{{ Object.values(service.addon)[0] }}</p>
-          </div>
+          </section>
         </div>
-      </div>
+      </section>
 
-      <!-- Service Additionnel -->
-      <div v-if="service.multiple" class="service-section additional">
+      <section v-if="service.multiple" class="service-section additional">
         <h2 class="service-title">{{ service.otherTitle }}</h2>
         
-        <div class="service-media">
+        <figure class="service-media">
           <img 
             :src="service.otherImg" 
             :alt="service.otherTitle"
-            :title="service.otherTitle" 
+            :title="service.otherTitle"
             class="service-image"
-            loading="lazy" 
+            loading="lazy"
+            width="600"
+            height="350"
           />
-        </div>
+        </figure>
 
         <div class="service-details">
           <p class="service-description">{{ service.otherDescr }}</p>
 
-          <div v-if="service.otherFormats" class="formats-section">
+          <section v-if="service.otherFormats" class="formats-section">
             <h2>Formats disponibles</h2>
-            <div class="formats-grid">
+            <div class="formats-grid" role="list">
               <div v-for="format in service.otherFormats" 
                    :key="format" 
-                   class="format-item">
+                   class="format-item"
+                   role="listitem">
                 {{ format }}
               </div>
             </div>
-          </div>
+          </section>
         </div>
-      </div>
-    </div>
-  </div>
+      </section>
+    </article>
+  </main>
 </template>
 
 <script>
@@ -93,6 +93,19 @@ import Category from "@/components/Category";
 export default {
   head: {
   title: 'Services Impression & Reprographie - Prorepro Paris Voltaire',
+  script: [{
+      type: 'application/ld+json',
+      json: {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": this.service?.title,
+        "description": this.service?.description,
+        "provider": {
+          "@type": "LocalBusiness",
+          "name": "Pro Repro Paris"
+        }
+      }
+    }],
   meta: [
     { 
       hid: 'description', 

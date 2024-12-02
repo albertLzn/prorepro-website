@@ -1,9 +1,10 @@
 <template>
-  <div >
-    <div
+  <main>
+    <h1 class="sr-only">Pro Repro - Imprimerie & Reprographie Paris Voltaire</h1>
+    <section 
+      aria-label="Nos services"
       class="grid paradis lg:grid-cols-5 md:grid-cols-3 grid-cols-2 md:mx-auto bg-main pt-2 py-md-5"
     >
-    
       <Category
         class="p-10"
         v-for="(category, i) in categories"
@@ -15,10 +16,8 @@
         :show-button="true"
         :isNav="false"
       ></Category>
-    </div>
-
-
-  </div>
+    </section>
+  </main>
 </template>
 
 <script>
@@ -29,6 +28,15 @@ export default {
   name: "Home",
   head: {
   title: 'Prorepro - Photocopie & Reprographie Paris Voltaire (75011)',
+  script: [{
+      type: 'application/ld+json',
+      json: {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Pro Repro - Imprimerie & Reprographie Paris",
+        "description": "Service professionnel de photocopie et impression à Paris 11e"
+      }
+    }],
   meta: [
     { 
       hid: 'description', 

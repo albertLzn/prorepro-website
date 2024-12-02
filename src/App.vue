@@ -1,10 +1,16 @@
 <template>
-  <div id="app">
-    <link rel="preload" as="font" href="../public/proreprologo2024.png"  crossorigin="anonymous">
+  <main id="app">
+    <link 
+      rel="preload" 
+      as="image" 
+      href="../public/proreprologo2024.png"
+      type="image/png"
+      crossorigin="anonymous"
+    >
     <Default>
       <router-view />
     </Default>
-  </div>
+  </main>
 </template>
 
 <script>
