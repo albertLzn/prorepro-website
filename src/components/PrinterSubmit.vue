@@ -1,5 +1,13 @@
 <template>
     <div class="printer-submit-container">
+      <FormPaper 
+      :form="form" 
+      :isEntering="isEntering"
+      :isAnimating="isAnimating"
+      :hasDate="hasDate"
+      v-show="!isPrinting"
+
+    />
         <div class="printer" @click="handleClick">
       <div class="printer-body">
         <div class="printer-details"></div>
@@ -26,9 +34,19 @@
   </template>
   
   <script>
+  import FormPaper from './FormPaper.vue'
+
   export default {
     name: 'PrinterSubmit',
+    
+    components: {
+    FormPaper
+  },
     props: {
+      form: {
+      type: Object,
+      required: true
+    },
       hasErrors: {
         type: Boolean,
         required: true
@@ -36,50 +54,105 @@
       loading: {
         type: Boolean,
         required: true
-      }
+      },
+      hasDate: {
+        type: Boolean,
+        required:false,
+        default: true
+      }, 
     },
     data() {
         return {
+          isEntering: false,
       isAnimating: false,
+      isPrinting: false,
       printError: false,
       printMessage: '',
       isPrintingSuccess: false
     }
     },
     methods: {
-      handleClick() {
-        if (!this.hasErrors && !this.loading) {
-          this.$emit('submit')
-        }
-      },
-      printSuccess() {
-      this.printMessage = 'Devis envoyé avec succès !\nNous vous contacterons rapidement.'
-      this.printError = false
-      this.isPrintingSuccess = true
-      this.isAnimating = true
-      
-      // Utiliser une seule promesse setTimeout pour tout réinitialiser
+  handleClick() {
+    if (!this.hasErrors && !this.loading) {
+      this.isEntering = true
       setTimeout(() => {
-        this.isAnimating = false
-        this.isPrintingSuccess = false
-      }, 7000)
-    },
-      printFailure() {
-        this.printMessage = 'Erreur lors de l\'envoi du devis.\nVeuillez réessayer.'
-        this.printError = true
-        this.startAnimation()
-      }
+        this.isEntering = false
+        this.isPrinting = true
+        this.$emit('submit')
+      }, 1000)
     }
+  },
+  printSuccess() {
+    this.printMessage = 'Devis envoyé avec succès !\nNous vous contacterons rapidement.'
+    this.printError = false
+    this.isPrintingSuccess = true
+    this.isAnimating = true
+    
+    this.$nextTick(() => {
+      const printerElement = this.$el
+      printerElement.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      })
+    })
+    
+    setTimeout(() => {
+      this.isAnimating = false
+      this.isPrintingSuccess = false
+      this.isPrinting = false
+    }, 7000)
+  },
+  printFailure() {
+    this.printMessage = 'Erreur lors de l\'envoi du devis.\nVeuillez réessayer.'
+    this.printError = true
+    this.isPrintingSuccess = false
+    this.isAnimating = true
+    
+    this.$nextTick(() => {
+      const printerElement = this.$el
+      printerElement.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      })
+    })
+    
+    setTimeout(() => {
+      this.isAnimating = false
+      this.isPrinting = false
+    }, 3000)
+  }
+}
   }
   </script>
   
   <style scoped>
-  .printer-submit-container {
-    width: 100%;
-    height: 120px;
-    position: relative;
-    cursor: pointer;
-  }
+.printer-submit-container {
+  width: 100%;
+  height: 200px; /* Augmenté pour accommoder le FormPaper */
+  position: relative;
+  cursor: pointer;
+  margin-top: 220px; /* Espace pour le FormPaper */
+}
+
+/* Nouveau style pour positionner le FormPaper */
+:deep(.form-paper) {
+  position: absolute;
+  top: -220px; /* Position au-dessus de l'imprimante */
+  left: 45%; /* Légèrement décalé vers la gauche */
+  transform: translateX(-50%) rotate(-2deg); /* Légère rotation pour l'effet "calé" */
+  width: 65%;
+  min-height: 220px;
+  max-height: 280px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: -1;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+:deep(.form-paper.filled) {
+  transform: translateX(-50%) translateY(20px) rotate(-2deg); /* Légèrement inséré dans l'imprimante */
+}
   
   .printer {
     width: 100%;
@@ -150,13 +223,17 @@
   }
   
   .paper-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    text-align: center;
-  }
-  
+  padding: 15px;
+  font-size: 12px;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease;
+}
+
+.form-paper:not(.filled) .paper-content {
+  opacity: 0;
+  visibility: hidden;
+}
   .message {
     font-family: 'Arial', sans-serif;
     font-size: 16px;

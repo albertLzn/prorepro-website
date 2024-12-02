@@ -44,11 +44,13 @@
         @validation="validation.validationFile = $event.hasErrors"
       />
       <PrinterSubmit 
-        :hasErrors="hasErrors"
-        :loading="loading"
-        @submit="handleSubmit"
-        ref="printerSubmit"
-      />
+  :hasErrors="hasErrors"
+  :loading="loading"
+  :form="form"
+  @submit="handleSubmit"
+  ref="printerSubmit"
+  :hasDate="true"
+/>
     </div>
     <div v-show="sentSucceed" class="validation-text text-center mt-2">
       Message envoyé !
@@ -149,7 +151,7 @@ export default {
   width: 350px;
   max-width: 100%;
   margin-bottom: 150px;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 @media screen and (max-width: 768px) {

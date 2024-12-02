@@ -98,8 +98,8 @@ export default {
       json: {
         "@context": "https://schema.org",
         "@type": "Service",
-        "name": this.service?.title,
-        "description": this.service?.description,
+        "name": 'Photocopies & Impressions, Posters, Création graphique PAO, Affiches Grands Formats, Posters, Plans, Impression sur mug, Carte de visites Express, Plastifications & Reliures, Flyers et Tampons, Tirage photos, Impression sur mug',
+        "description": "Photocopies, Toutes Impressions, Posters, Création graphique PAO, Affiches Grands Formats, Posters, Plans, Impression sur mug, Carte de visites Express, Plastifications & Reliures, Flyers et Tampons, Tirage photos, Impression sur mug",
         "provider": {
           "@type": "LocalBusiness",
           "name": "Pro Repro Paris"

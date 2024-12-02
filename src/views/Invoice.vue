@@ -147,14 +147,15 @@
         label="Précisions supplémentaires"
         class="form-input"
       />
-      
       <PrinterSubmit 
-        :hasErrors="hasErrors"
-        :loading="loading"
-        @submit="handleSubmit"
-        ref="printerSubmit"
-        aria-label="Envoyer le devis"
-      />
+  :hasErrors="hasErrors"
+  :loading="loading"
+  :form="form"
+  @submit="handleSubmit"
+  ref="printerSubmit"
+  :hasDate="false"
+
+/>
     </form>
 
     <div 
@@ -300,44 +301,54 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      try {
-        this.loading = true;
-        const response = await emailjs.send(
-          'service_tlnepz8',
-          'template_kz0qb9q',
-          this.prepareEmailData(),
-          'yzdSZ5ZiXmjUBUrYe'
-        );
+  // Convertir le fichier en base64
+  let fileAttachment = null;
+  if (this.form.files && this.form.files.length > 0) {
+    const reader = new FileReader();
+    fileAttachment = await new Promise((resolve) => {
+      reader.onload = (e) => resolve(e.target.result);
+      reader.readAsDataURL(this.form.files[0]);
+    });
+  }
 
-        if (response.status === 200) {
-          this.$refs.printerSubmit.printSuccess()
-          this.form = initForm();
-        } else {
-          throw new Error('Erreur lors de l\'envoi');
-        }
-      } catch (error) {
-        console.error('Erreur:', error);
-        this.$refs.printerSubmit.printFailure()
-      } finally {
-        this.loading = false;
-      }
-    },
-    prepareEmailData() {
-      return {
-        company_name: this.form.company,
-        siret: this.form.siret,
-        from_name: this.form.name,
-        from_email: this.form.email,
-        address: this.form.address,
-        postal_code: this.form.postalCode,
-        city: this.form.city,
-        request_type: this.form.type,
-        quantity: this.form.quantity,
-        format: this.form.format,
-        deadline: this.form.deadline,
-        comment: this.form.comment || "N/A"
-      };
+  const formattedData = {
+    subject: "Nouveau devis",
+    from_name: this.form.name,
+    from_email: this.form.email,
+    message: `
+      Société: ${this.form.company}
+      SIRET: ${this.form.siret}
+      Adresse: ${this.form.address}
+      Code Postal: ${this.form.postalCode}
+      Ville: ${this.form.city}
+      Type de projet: ${this.form.type}
+      Quantité: ${this.form.quantity}
+      Format: ${this.form.format}
+      Date souhaitée: ${this.form.deadline}
+      Commentaire: ${this.form.comment || "Aucun"}
+    `,
+    attachment: fileAttachment // Ajout de la pièce jointe
+  };
+
+  try {
+    this.loading = true;
+    const response = await emailjs.send(
+      'service_tlnepz8',
+      'template_kz0qb9q',
+      formattedData,
+      'yzdSZ5ZiXmjUBUrYe'
+    );
+    if (response.status === 200) {
+      this.$refs.printerSubmit.printSuccess();
+      this.form = initForm();
     }
+  } catch (error) {
+    console.error('Erreur:', error);
+    this.$refs.printerSubmit.printFailure();
+  } finally {
+    this.loading = false;
+  }
+}
   }
 };
 </script>
