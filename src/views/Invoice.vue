@@ -133,15 +133,12 @@
         label="Précisions supplémentaires"
         class="form-input"
       />
-      <button
-        :disabled="hasErrors || loading"
-        class="submit-button text-white font-bold py-2 px-4 rounded w-full"
-        :class="{ 'bg-grey': hasErrors, 'bg-secondary hover:bg-secondaryDarker': !hasErrors }"
-        @click.prevent="handleSubmit"
-      >
-        <div class='spinner' v-if='loading' />
-        <span v-if='!loading'>Envoyer</span>
-      </button>
+      <PrinterSubmit 
+    :hasErrors="hasErrors"
+    :loading="loading"
+    @submit="handleSubmit"
+    ref="printerSubmit"
+  />
     </div>
     <div v-show='sentSucceed' class='validation-text text-center mt-2'>
       Message envoyé !
@@ -154,6 +151,7 @@
 
 <script>
 import emailjs from 'emailjs-com';
+import PrinterSubmit from '../components/PrinterSubmit.vue'
 
 const types = [
   {
@@ -207,16 +205,43 @@ const initValidation = () => ({
 
 export default {
   head: {
-    title: 'Devis - Pro Repro Paris',
-    meta: [
-      { hid: 'devis', name: 'devis', content: 'Devis en ligne en ligne Pro Repro' }
-    ],
+  title: 'Devis Gratuit Impression & Reprographie - Prorepro Paris Voltaire',
+  meta: [
+    { 
+      hid: 'description', 
+      name: 'description', 
+      content: 'Demandez votre devis gratuit pour vos travaux d\'impression à Paris 11e. Photocopies, impressions grand format, offset, finitions. Réponse rapide, tarifs professionnels et étudiants.' 
+    },
+    { 
+      hid: 'keywords', 
+      name: 'keywords', 
+      content: 'devis impression paris, devis photocopie, devis reprographie, tarif impression, devis grand format, devis offset, devis reliure paris' 
+    },
+    { 
+      property: 'og:title', 
+      content: 'Devis Gratuit Impression & Reprographie - Prorepro Paris' 
+    },
+    { 
+      property: 'og:description', 
+      content: 'Formulaire de devis en ligne pour tous vos projets d\'impression : standard, grand format, offset et finitions. Service professionnel à Paris 11e, réponse rapide.' 
+    },
+    {
+      hid: 'robots',
+      name: 'robots',
+      content: 'index, follow'
+    }
+  ]
+},
+  components: {
+    PrinterSubmit
   },
   mounted() {
     emailjs.init('yzdSZ5ZiXmjUBUrYe');
-    const nextDiv = document.getElementById('top-invoice');
-    nextDiv.scrollIntoView({behavior: 'smooth', block:'nearest'})
-  },
+
+  const topDiv = document.getElementById('page-top');
+  topDiv.scrollIntoView({behavior: 'smooth', block:'start'})
+},
+
   data() {
     return {
       types,
@@ -246,15 +271,14 @@ export default {
         );
 
         if (response.status === 200) {
-          this.sentSucceed = true;
-          this.sent = true;
+          this.$refs.printerSubmit.printSuccess()
           this.form = initForm();
         } else {
           throw new Error('Erreur lors de l\'envoi');
         }
       } catch (error) {
         console.error('Erreur:', error);
-        this.sentFailed = true;
+        this.$refs.printerSubmit.printFailure()
       } finally {
         this.loading = false;
       }
@@ -287,6 +311,7 @@ export default {
   backdrop-filter: blur(10px);
   border-radius: 1rem;
   padding: 1.5rem;
+  margin-bottom: 150px;
 }
 
 .bg-acr {
@@ -296,7 +321,9 @@ export default {
   padding: 1.5rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
-
+.protitle {
+  color: white;
+}
 .form-input {
   margin-bottom: 1rem;
   
@@ -337,6 +364,8 @@ export default {
   animation: spin 1s linear infinite;
   margin: 0 auto;
 }
+
+
 
 .validation-text {
   color: green;

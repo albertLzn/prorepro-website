@@ -26,25 +26,30 @@
             class="mr-2"
             style="height:24px"
             src="@/assets/icon-localisation.svg"
+            loading="lazy"
+            alt="icon-localisation" title="icon-localisation"  
           />
           <span>
             128 Boulevard Voltaire, 75011 Paris
           </span>
         </div>
         <div class="flex p-1 fl">
-          <img class="mr-2" src="@/assets/icon-mail.svg" />
+          <img class="mr-2" src="@/assets/icon-mail.svg"    alt="icon-mail"  title="con-mail"       loading="lazy"          />
           <span>
             contact@prorepro.fr
           </span>
         </div>
         <div class="flex  p-1 fl">
-          <img class="mr-2" src="@/assets/icon-phone.svg" />
+          <img class="mr-2" src="@/assets/icon-phone.svg"    alt="icon-phone" title="icon-phone"       loading="lazy"
+          />
           <a href="tel:01 83 91 23 52">
             01 83 91 23 52
           </a>
         </div>
         <div class="flex p-1 fl" @click="openFacebook">
           <img
+          loading="lazy"
+          alt="icon-facebook" title="icon-facebook"  
             class="icon-facebook cursor-pointer mr-2"
             src="@/assets/icon-facebook.svg"
           />

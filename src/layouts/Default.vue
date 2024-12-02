@@ -1,11 +1,11 @@
 <template>
-  <div class="flex flex-col mx-auto  default-container">
-        <Navbar />
+  <div class="flex flex-col mx-auto default-container">
+    <div id="page-top"></div>
+    <Navbar />
     <Header class="mb-5 mt-10" v-if="$route.path === '/'" />
     <div class="my-6">
       <slot />
     </div>
-
     <bottom-nav></bottom-nav>
   </div>
 </template>

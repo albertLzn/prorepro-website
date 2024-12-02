@@ -28,11 +28,41 @@ import {
 export default {
   name: "Home",
   head: {
-    title: 'Home page',
-    meta: [
-        { hid: 'home', name: 'home', content: 'Pro Repro reprographie' }
-      ],
-  },
+  title: 'Prorepro - Photocopie & Reprographie Paris Voltaire (75011)',
+  meta: [
+    { 
+      hid: 'description', 
+      name: 'description', 
+      content: 'Imprimerie, photocopie et reprographie à Paris 11e, 128 Boulevard Voltaire. Impressions couleur et N&B, affiches grand format, reliures, thèses, mémoires. Tarif étudiant -20%. Service rapide sur place ou livraison.' 
+    },
+    { 
+      hid: 'keywords', 
+      name: 'keywords', 
+      content: 'photocopie paris 11, impression paris, reprographie voltaire, imprimerie paris est, copies couleur, thèse reliure, affiches grand format, mémoire étudiant, impression rapide paris' 
+    },
+    { 
+      property: 'og:title', 
+      content: 'Prorepro Paris Voltaire - Photocopie, Impression, Reprographie (75011)' 
+    },
+    { 
+      property: 'og:description', 
+      content: 'Votre imprimerie de proximité à Paris 11e. Photocopies, impressions, reliures, affiches grand format. Tarifs étudiants. Service rapide, qualité professionnelle. 128 Boulevard Voltaire.' 
+    },
+    {
+      hid: 'robots',
+      name: 'robots',
+      content: 'index, follow'
+    },
+    {
+      name: 'geo.position',
+      content: '48.8584; 2.3488'
+    },
+    {
+      name: 'geo.placename',
+      content: 'Paris 11e'
+    }
+  ]
+},
     
   components: {
     VCarousel, VCarouselItem, VRow,

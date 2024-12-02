@@ -8,6 +8,8 @@
           class="logo-image"
           src="../assets/proreprologo2024.png"
           alt="Pro Repro Logo"
+         title="Pro Repro Logo" 
+          loading="lazy" 
         />
       </div>
 
@@ -18,6 +20,8 @@
           class="info-carousel"
           :show-arrows="false" 
           cycle 
+          hide-delimiters
+
           interval="3250"
         >
           <v-carousel-item
@@ -39,8 +43,11 @@
             <div><span>Lundi - Vendredi</span> <span>9h à 19h</span></div>
             <div><span>Samedi</span> <span>9h à 18h</span></div>
             <div><span>Dimanche</span> <span>10h à 17h</span></div>
+            <PrintAnimation />
+
           </div>
         </div>
+
       </div>
     </div>
 
@@ -59,11 +66,13 @@
     <!-- Carousel Mobile -->
 <div class="mobile-carousel">
   <v-carousel 
-    height="200" 
-    class="info-carousel"
-    :show-arrows="false" 
-    cycle 
-    interval="3250"
+  height="200" 
+          class="info-carousel"
+          :show-arrows="false" 
+          cycle 
+          hide-delimiters
+
+          interval="3250"
   >
     <v-carousel-item
       v-for="(item,i) in items"
@@ -83,11 +92,13 @@
 
 <script>
 import { VCarousel, VCarouselItem } from 'vuetify/lib';
+import PrintAnimation from './PrintAnimation.vue'
 
 export default {
   components: {
     VCarousel,
-    VCarouselItem
+    VCarouselItem,
+    PrintAnimation
   },
   data: () => ({
     items: [
@@ -119,6 +130,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .header-container {
   backdrop-filter: blur(10px);
   padding: 1rem;
@@ -287,6 +299,7 @@ export default {
   
   @media (max-width: 768px) {
     font-size: 1.8rem;
+    padding-top: 35px;
   }
 }
   

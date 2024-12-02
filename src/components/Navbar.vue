@@ -3,7 +3,7 @@
     <nav class="navbar" :class="{ 'navbar-scrolled': hasScrolled }">
       <div class="navbar-container">
         <router-link to="/" class="navbar-logo">
-          <img src="../assets/proreprologo2024.png" alt="Pro Repro" class="logo-small"/>
+          <img src="../assets/proreprologo2024.png" alt="Pro Repro NavbarLogo" title="Pro Repro Logo Navbar" class="logo-small" loading="lazy" />
         </router-link>
 
         <div class="navbar-links" :class="{ 'hidden': isMobile }">
@@ -41,7 +41,7 @@
     <transition name="drawer">
       <div v-if="isDrawerOpen && isMobile" class="mobile-drawer">
         <div class="drawer-header">
-          <img src="../assets/proreprologo2024.png" alt="Pro Repro" class="logo-small"/>
+          <img src="../assets/proreprologo2024.png" loading="lazy"  title="Pro Repro Icon" alt="Pro Repro" class="logo-small"/>
           <v-btn icon @click="toggleDrawer">
             <v-icon>mdi-close</v-icon>
           </v-btn>

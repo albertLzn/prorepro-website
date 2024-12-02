@@ -2,7 +2,7 @@
   <div class="category-card" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
     <div class="card-content" @click="goToCategory(id)">
       <div class="image-container">
-        <img v-if="imgSrc" :src="imgSrc" :alt="shortTitle" class="category-image" />
+        <img v-if="imgSrc" :src="imgSrc" :alt="shortTitle" class="category-image" loading="lazy" :title="shortTitle"/>
         <div class="image-overlay" :class="{ 'overlay-active': isHovered }">
           <div class="overlay-content">
             <h2 class="category-title" :style="{ fontSize: titleFontSize }">{{ shortTitle.toUpperCase() }}</h2>

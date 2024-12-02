@@ -43,17 +43,12 @@
         help="Formats acceptés: jpeg, png, jpg, pdf"
         @validation="validation.validationFile = $event.hasErrors"
       />
-      <button
-        :disabled="hasErrors || loading"
-        class="submit-button text-white font-bold py-2 px-4 rounded w-full"
-        :class="hasErrors ? 'bg-grey' : 'bg-secondary hover:bg-secondaryDarker'"
-        @click="handleSubmit"
-      >
-        <div class="spinner" v-if="loading" />
-        <span v-else>
-          Envoyer
-        </span>
-      </button>
+      <PrinterSubmit 
+        :hasErrors="hasErrors"
+        :loading="loading"
+        @submit="handleSubmit"
+        ref="printerSubmit"
+      />
     </div>
     <div v-show="sentSucceed" class="validation-text text-center mt-2">
       Message envoyé !
@@ -65,7 +60,8 @@
 </template>
 
 <script>
-import axios from "@/utils/axios";
+import emailjs from 'emailjs-com';
+import PrinterSubmit from './PrinterSubmit.vue'
 
 const initForm = () => ({
   name: "",
@@ -83,6 +79,12 @@ const initValidation = () => ({
 });
 
 export default {
+  components: {
+    PrinterSubmit,
+  },
+  mounted() {
+    emailjs.init('yzdSZ5ZiXmjUBUrYe');
+  },
   data: () => ({
     sent: false,
     loading: false,
@@ -106,33 +108,37 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      this.sentFailed = false;
-      const forms = Object.entries(this.form);
       try {
         this.loading = true;
-        const formData = new FormData();
-        forms.forEach(val => {
-          if (val[0] === "file" && val[1]) {
-            formData.append(val[0], val[1].files[0].file);
-          }
-          if (val[1]) {
-            formData.append(val[0], val[1]);
-          }
-        });
+        const response = await emailjs.send(
+          'service_tlnepz8',
+          'template_kz0qb9q',
+          this.prepareEmailData(),
+          'yzdSZ5ZiXmjUBUrYe'
+        );
 
-        await axios.post("https://prorepro-server.herokuapp.com/contact", formData, {
-          headers: {
-            "content-type": "multipart/form-data"
-          }
-        });
-
-        this.sentSucceed = true;
-        this.sent = true;
-      } catch (e) {
+        if (response.status === 200) {
+          this.$refs.printerSubmit.printSuccess();
+          this.form = initForm();
+        } else {
+          throw new Error('Erreur lors de l\'envoi');
+        }
+      } catch (error) {
+        console.error('Erreur:', error);
+        this.$refs.printerSubmit.printFailure();
         this.sentFailed = true;
       } finally {
         this.loading = false;
       }
+    },
+    prepareEmailData() {
+      return {
+        from_name: this.form.name,
+        from_email: this.form.email,
+        subject: this.form.subject || 'Sans objet',
+        message: this.form.message,
+        file: this.form.file ? this.form.file.files[0].name : 'Aucun fichier'
+      };
     }
   }
 };
@@ -142,38 +148,19 @@ export default {
 .contact-form-box {
   width: 350px;
   max-width: 100%;
+  margin-bottom: 150px;
+  margin-top: 100px;
 }
 
-.contact-form-box  div label {
+@media screen and (max-width: 768px) {
+  .contact-form-box {
+    margin-top: 10px;
+  }
+}
+.contact-form-box div label {
   margin-bottom: 10px;
 }
 
-@keyframes spinner {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.submit-button {
-  position: relative;
-  min-height: 40px;
-}
-
-.spinner:before {
-  content: "";
-  position: absolute;
-  box-sizing: border-box;
-  top: 50%;
-  left: 50%;
-  width: 20px;
-  height: 20px;
-  margin-top: -10px;
-  margin-left: -10px;
-  border-radius: 50%;
-  border: 2px solid #ccc;
-  border-top-color: #000;
-  animation: spinner 0.6s linear infinite;
-}
 .validation-text {
   background: rgba(104, 201, 186, 0.1);
   color: #68c9ba;
@@ -204,13 +191,13 @@ export default {
 }
 
 .formulate-input {
-  &  .formulate-input-element {
+  & .formulate-input-element {
     max-width: unset;
   }
-  &  input {
+  & input {
     background: white;
   }
-  &  textarea {
+  & textarea {
     background: white;
   }
 }

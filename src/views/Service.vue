@@ -29,6 +29,8 @@
             :src="service.imgSrc" 
             :alt="service.title"
             class="service-image"
+            loading="lazy" 
+            :title="service.title" 
           />
         </div>
 
@@ -61,7 +63,9 @@
           <img 
             :src="service.otherImg" 
             :alt="service.otherTitle"
+            :title="service.otherTitle" 
             class="service-image"
+            loading="lazy" 
           />
         </div>
 
@@ -87,18 +91,39 @@
 <script>
 import Category from "@/components/Category";
 export default {
-    head: {
-      
-    title: 'Service',
-     meta: [
-        { hid: 'devis', name: 'devis', content: 'Demande de devis en ligne' }
-      ],
-  },
+  head: {
+  title: 'Services Impression & Reprographie - Prorepro Paris Voltaire',
+  meta: [
+    { 
+      hid: 'description', 
+      name: 'description', 
+      content: 'Tous nos services d\'impression à Paris 11e : photocopies couleur/N&B, impressions numériques, affiches grand format, reliures, création graphique PAO, cartes de visite express, plastification, flyers, tampons et tirages photo.' 
+    },
+    { 
+      hid: 'keywords', 
+      name: 'keywords', 
+      content: 'photocopie paris, impression numérique, reliure thèse, création graphique, carte de visite express, affiche grand format, flyer, tampon encreur, tirage photo, plastification document' 
+    },
+    { 
+      property: 'og:title', 
+      content: 'Services d\'Impression & Reprographie - Prorepro Paris' 
+    },
+    { 
+      property: 'og:description', 
+      content: 'Découvrez nos services d\'imprimerie : photocopies tous formats, impressions offset, reliures, PAO, affiches, cartes de visite, plastification. Travaux express possibles, qualité professionnelle.' 
+    },
+    {
+      hid: 'robots',
+      name: 'robots',
+      content: 'index, follow'
+    }
+  ]
+},
   name: "Service",
   components: { Category },
   mounted(){
-                const nextDiv = document.getElementById('top-services')
-                nextDiv.scrollIntoView({behavior: 'smooth',  block:'center' })
+    const topDiv = document.getElementById('page-top');
+    topDiv.scrollIntoView({behavior: 'smooth', block:'start'})
   },
   data() {
     return {

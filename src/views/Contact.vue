@@ -25,6 +25,8 @@
           class="rounded w-full h-[200px] object-cover"
           src="@/assets/mapview.png"
           alt="Pro Repro Location"
+          loading="lazy" 
+          title="Pro Repro Location Paris Voltaire 75011"
         />
       </div>
 
@@ -39,15 +41,45 @@ export default {
     ContactForm: () => import("@/components/ContactForm.vue")
   },
   head: {
-    title: 'Contact',
-    meta: [
-      { hid: 'contact', name: 'contact', content: 'Page formulaire de contact prorepro' }
-    ],
-  },
+  title: 'Contact - Pro Repro Paris Voltaire (75011)',
+  meta: [
+    { 
+      hid: 'description', 
+      name: 'description', 
+      content: 'Contactez Pro Repro au 128 Boulevard Voltaire, Paris 11e. Ouvert 7j/7, service d\'impression et reprographie professionnel. Devis gratuit, réponse rapide. Tél : 01 83 91 23 52.' 
+    },
+    { 
+      hid: 'keywords', 
+      name: 'keywords', 
+      content: 'contact imprimerie paris, reprographie voltaire, horaires impression paris 11, devis impression, pro repro paris contact' 
+    },
+    { 
+      property: 'og:title', 
+      content: 'Contactez Pro Repro Paris - Impression & Reprographie' 
+    },
+    { 
+      property: 'og:description', 
+      content: 'Imprimerie Pro Repro à Paris 11e. Ouvert 7j/7 : Lun-Ven 9h-19h, Sam 9h-18h, Dim 10h-17h. Service client réactif, devis personnalisé.' 
+    },
+    {
+      hid: 'robots',
+      name: 'robots',
+      content: 'index, follow'
+    },
+    {
+      name: 'geo.position',
+      content: '48.8584; 2.3488'
+    },
+    {
+      name: 'geo.placename',
+      content: 'Paris 11e'
+    }
+  ]
+},
   mounted() {
-    const nextDiv = document.getElementById('top-contact');
-    nextDiv.scrollIntoView({behavior: 'smooth', block:'center' })
-  },
+  const topDiv = document.getElementById('page-top');
+  topDiv.scrollIntoView({behavior: 'smooth', block:'start'})
+},
   methods: {
     openMapView() {
       window.open("https://www.google.com/maps?q=128+Boulevard+Voltaire+75011");
