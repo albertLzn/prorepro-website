@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Desktop Navbar -->
     <nav class="navbar" :class="{ 'navbar-scrolled': hasScrolled }">
       <div class="navbar-container">
         <router-link to="/" class="navbar-logo">
@@ -9,50 +8,29 @@
 
         <div class="navbar-links" :class="{ 'hidden': isMobile }">
           <template v-for="item in menuItems">
-            <!-- Item Services avec Dropdown -->
-            <div v-if="item.name === 'Nos services'" 
-                 class="nav-item-wrapper"
-                 @mouseover="showDropdown = true"
-                 @mouseleave="showDropdown = false">
-              <router-link 
-                :to="item.path"
-                class="nav-link"
-                :class="{ 'active': $route.path === item.path }"
-              >
+            <div v-if="item.name === 'Nos services'" class="nav-item-wrapper" @mouseover="showDropdown = true" @mouseleave="showDropdown = false">
+              <router-link :to="item.path" class="nav-link" :class="{ 'active': $route.path === item.path }">
+                <v-icon left>{{ item.icon }}</v-icon>
                 {{ item.name }}
               </router-link>
-              
-              <!-- Dropdown Menu -->
               <div v-show="showDropdown" class="services-dropdown">
                 <div class="dropdown-grid">
-                  <Category 
-                    v-for="category in categories"
-                    :key="category.id"
-                    v-bind="category"
-                    :isNav="true"
-                  />
+                  <Category v-for="category in categories" :key="category.id" v-bind="category" :isNav="true"/>
                 </div>
               </div>
             </div>
-            
-            <!-- Autres items du menu -->
-            <router-link 
-              v-else
-              :to="item.path"
-              class="nav-link"
-              :class="{ 'active': $route.path === item.path }"
-            >
+            <router-link v-else :to="item.path" class="nav-link" :class="{ 'active': $route.path === item.path }">
+              <v-icon left>{{ item.icon }}</v-icon>
               {{ item.name }}
             </router-link>
           </template>
         </div>
 
-        <!-- Hamburger pour mobile -->
+
         <button 
           class="hamburger"
           :class="{ 'hidden': !isMobile, 'is-active': isDrawerOpen }"
-          @click="toggleDrawer"
-        >
+          @click="toggleDrawer">
           <span></span>
           <span></span>
           <span></span>
@@ -60,14 +38,13 @@
       </div>
     </nav>
 
-    <!-- Mobile Drawer -->
     <transition name="drawer">
       <div v-if="isDrawerOpen && isMobile" class="mobile-drawer">
         <div class="drawer-header">
           <img src="../assets/proreprologo2024.png" alt="Pro Repro" class="logo-small"/>
-          <button class="close-drawer" @click="toggleDrawer">
+          <v-btn icon @click="toggleDrawer">
             <v-icon>mdi-close</v-icon>
-          </button>
+          </v-btn>
         </div>
         
         <div class="drawer-links">
@@ -77,31 +54,32 @@
             :to="item.path"
             class="drawer-link"
             :class="{ 'active': $route.path === item.path }"
-            @click="toggleDrawer"
-          >
-            <v-icon class="mr-2">{{ item.icon }}</v-icon>
+            @click="toggleDrawer">
+            <v-icon left>{{ item.icon }}</v-icon>
             {{ item.name }}
           </router-link>
         </div>
       </div>
     </transition>
 
-    <!-- Overlay pour mobile -->
     <div 
       v-if="isDrawerOpen && isMobile" 
       class="drawer-overlay"
-      @click="toggleDrawer"
-    ></div>
+      @click="toggleDrawer">
+    </div>
   </div>
 </template>
 
 <script>
 import Category from './Category.vue'
+import { VIcon, VBtn } from 'vuetify/lib'
 
 export default {
   name: 'Navbar',
   components: {
-    Category
+    Category,
+    VIcon,
+    VBtn
   },
   data: () => ({
     isDrawerOpen: false,
@@ -111,94 +89,53 @@ export default {
     menuItems: [
       { name: 'Accueil', path: '/', icon: 'mdi-home' },
       { name: 'Nos services', path: '/service', icon: 'mdi-briefcase' },
-      { name: 'Demande de Devis', path: '/invoice', icon: 'mdi-file-document' },
+      { name: 'Devis en ligne', path: '/invoice', icon: 'mdi-file-document' },
       { name: 'Contact', path: '/contact', icon: 'mdi-email' }
     ],
     categories: [
-      {
-        imgSrc: require("@/assets/copy.png"),
-        id: "copy",
-        shortTitle: "Photo\ncopies"
-      },
-      {
-        imgSrc: require("@/assets/affiche.png"),
-        id: "affiche",
-        shortTitle: "Affiches"
-      },
-      {
-        imgSrc: require("@/assets/design.png"),
-        id: "design",
-        shortTitle: "Design"
-      },
-      {
-        imgSrc: require("@/assets/plastic.png"),
-        id: "plastic",
-        shortTitle: "Reliures"
-      },
-      {
-        imgSrc: require("@/assets/poster.png"),
-        id: "poster",
-        shortTitle: "Posters"
-      },
-      {
-        imgSrc: require("@/assets/gift.png"),
-        id: "gift",
-        shortTitle: "Cadeaux"
-      },
-      {
-        imgSrc: require("@/assets/card.png"),
-        id: "card",
-        shortTitle: "Cartes"
-      },
-      {
-        imgSrc: require("@/assets/tirage.png"),
-        id: "tirage",
-        shortTitle: "Photos"
-      },
-      {
-        imgSrc: require("@/assets/mug.png"),
-        id: "mug",
-        shortTitle: "Mug"
-      },
-      {
-        imgSrc: require("@/assets/stamp.png"),
-        id: "stamp",
-        shortTitle: "Tampons"
-      }
+      { imgSrc: require("@/assets/copy.png"), id: "copy", shortTitle: "Photo\ncopies" },
+      { imgSrc: require("@/assets/affiche.png"), id: "affiche", shortTitle: "Affiches" },
+      { imgSrc: require("@/assets/design.png"), id: "design", shortTitle: "Design" },
+      { imgSrc: require("@/assets/plastic.png"), id: "plastic", shortTitle: "Reliures" },
+      { imgSrc: require("@/assets/poster.png"), id: "poster", shortTitle: "Posters" },
+      { imgSrc: require("@/assets/gift.png"), id: "gift", shortTitle: "Cadeaux" },
+      { imgSrc: require("@/assets/card.png"), id: "card", shortTitle: "Cartes" },
+      { imgSrc: require("@/assets/tirage.png"), id: "tirage", shortTitle: "Photos" },
+      { imgSrc: require("@/assets/mug.png"), id: "mug", shortTitle: "Mug" },
+      { imgSrc: require("@/assets/stamp.png"), id: "stamp", shortTitle: "Tampons" }
     ]
   }),
 
   mounted() {
-    this.checkMobile();
-    window.addEventListener('scroll', this.handleScroll);
-    window.addEventListener('resize', this.checkMobile);
+    this.checkMobile()
+    window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('resize', this.checkMobile)
   },
 
   beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll);
-    window.removeEventListener('resize', this.checkMobile);
+    window.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('resize', this.checkMobile)
   },
 
   methods: {
     toggleDrawer() {
-      this.isDrawerOpen = !this.isDrawerOpen;
-      document.body.style.overflow = this.isDrawerOpen ? 'hidden' : '';
+      this.isDrawerOpen = !this.isDrawerOpen
+      document.body.style.overflow = this.isDrawerOpen ? 'hidden' : ''
     },
-
     handleScroll() {
-      this.hasScrolled = window.scrollY > 50;
+      this.hasScrolled = window.scrollY > 50
     },
-
     checkMobile() {
-      this.isMobile = window.innerWidth < 768;
+      this.isMobile = window.innerWidth < 768
       if (!this.isMobile) {
-        this.isDrawerOpen = false;
-        document.body.style.overflow = '';
+        this.isDrawerOpen = false
+        document.body.style.overflow = ''
       }
     }
   }
-};
+}
 </script>
+
 
 <style lang="scss" scoped>
 
@@ -306,7 +243,9 @@ backdrop-filter: blur(10px);
 
   &:hover, &.active {
     color: #68c9ba;
-    
+    .v-icon {
+      color: #68c9ba;
+    }
     &::after {
       width: 80%;
     }
@@ -377,6 +316,7 @@ backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(104, 201, 186, 0.1);
 }
 
+
 .drawer-links {
   padding-top: 1rem;
   display: flex;
@@ -395,6 +335,9 @@ backdrop-filter: blur(10px);
   &:hover, &.active {
     background: rgba(104, 201, 186, 0.1);
     color: #68c9ba;
+    .v-icon {
+      color: #68c9ba;
+    }
   }
 }
 

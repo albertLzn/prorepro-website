@@ -64,6 +64,7 @@ export default {
   max-width: 1200px;
   margin: 0 auto;
   gap: 2rem;
+  color: white;
 }
 
 .location-container {

@@ -209,7 +209,7 @@ export default {
   head: {
     title: 'Devis - Pro Repro Paris',
     meta: [
-      { hid: 'devis', name: 'devis', content: 'Demande de devis en ligne Pro Repro' }
+      { hid: 'devis', name: 'devis', content: 'Devis en ligne en ligne Pro Repro' }
     ],
   },
   mounted() {
@@ -281,13 +281,20 @@ export default {
 
 <style lang="scss" scoped>
 .contact-form-box {
-  width: 350px;
+  width: 500px; // un peu plus large que 350px pour mieux s'aligner
   max-width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 1.5rem;
 }
 
 .bg-acr {
-  background-color: rgba(0, 0, 0, .5);
-  padding: 15px;
+  background: rgba(104, 201, 186, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .form-input {
@@ -298,20 +305,25 @@ export default {
   :deep(textarea) {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid rgba(104, 201, 186, 0.3);
     border-radius: 6px;
-    background: white;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
     transition: all 0.2s;
     
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
     &:focus {
-      border-color: #2c3e50;
-      box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.1);
+      border-color: #68c9ba;
+      box-shadow: 0 0 0 2px rgba(104, 201, 186, 0.2);
     }
   }
 
   :deep(label) {
     font-weight: 500;
-    color: white;
+    color: #68c9ba;
     margin-bottom: 0.5rem;
   }
 }
@@ -363,6 +375,8 @@ export default {
   text-align: center;
   cursor: pointer;
   transition: all 0.2s;
+  color: rgb(104, 201, 186); /* Ajout de la nouvelle couleur */
+  
   &:hover {
     transform: translateY(-2px);
   }
@@ -376,6 +390,7 @@ export default {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
     display: block;
+
   }
 }
 </style>

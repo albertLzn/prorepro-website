@@ -3,7 +3,7 @@
   <div id="top-home" class="header-container">
     <div class="hero-section">
       <!-- Logo section -->
-      <div class="logo-container">
+      <div id="logo-container" class="logo-container">
         <img
           class="logo-image"
           src="../assets/proreprologo2024.png"
@@ -92,19 +92,20 @@ export default {
   data: () => ({
     items: [
       {
-        src: require('../assets/student.png'),
-        message: "Tarifs étudiants -20%"
-      },
-      {
-        src: require('../assets/photocopieuse.png'),
+        src: require('../assets/carousel/proReprofacade.jpeg'),
         message: "Commande sur place, par mail"
       },
       {
-        src: require('../assets/photocouleurs.jpeg'),
+        src: require('../assets/v2/services/design.webp'),
+
+        message: "Tarifs étudiants -20%"
+      },
+      {
+        src: require('../assets/carousel/prorepro3.jpeg'),
         message: "Photocopies Couleur, Noir & blancs"
       },
       {
-        src: require('../assets/livraison.png'),
+        src: require('../assets/carousel/proRepro4.webp'),
         message: "Service Livraison"
       }
     ]

@@ -119,7 +119,7 @@ export default {
             "A3 29,70 x 42 cm",
             "SRA3 32 x 45 cm"
           ],
-          imgSrc: require("@/assets/v2/services/photocopie.jpg"),
+          imgSrc: require("@/assets/carousel/prorepro2.jpeg"),
           id: "copy",
           icon: require("@/assets/copy.png"),
           multiple: false,
@@ -131,7 +131,7 @@ export default {
               "Nous vous proposons le tirage d’affiches de posters sur différents types de papier et sur adhésif grand format noir et blanc, couleur\n" +
               "affiche de présentation\n" +
               "Numérisation grand format",
-          imgSrc: require("@/assets/v2/services/poster.jpg"),
+          imgSrc: require("@/assets/v2/services/poster.webp"),
           icon: require("@/assets/poster.png"),
           id: "poster",
           formats: ['A2 42 x 59,4 cm', 'A1 59,4 x 84 cm', 'A4 21x 29, 70 cm', "A0 84 x 118,8 cm"]
@@ -142,7 +142,7 @@ export default {
           description:
             "Créez l’identité visuelle de votre société ,démarquez-vous avec des supports de communication personnalisés et créatifs.\n" +
             "Conception de Logo, cartes de visite, flyers, brochures, cartons d’invitation, faire-part, documents commerciaux, livrets.",
-          imgSrc: require("@/assets/v2/services/graphisme.jpg"),
+          imgSrc: require("@/assets/v2/services/design.webp"),
           icon: require("@/assets/design.png"),
           multiple: false,
 
@@ -157,7 +157,7 @@ export default {
             "Numérisation. Grands formats\n",
 
           formats: ["A2 42 x 59,4 cm", "A1 59,4 x 84 cm", "A0 84 x 118,8 cm"],
-          imgSrc: require("@/assets/v2/services/affiche.jpg"),
+          imgSrc: require("@/assets/v2/services/affiche.webp"),
           icon: require("@/assets/affiche.png"),
           multiple: false,
 
@@ -173,7 +173,7 @@ export default {
           icon: require("@/assets/gift.png"),          multiple: true,
           otherTitle: 'Affiche & Posters',
           otherFormats: ["A2 42 x 59,4 cm", "A1 59,4 x 84 cm", "A0 84 x 118,8 cm"],
-          otherImg: require("@/assets/v2/services/poster.jpg"),
+          otherImg: require("@/assets/v2/services/poster.webp"),
           otherDescr:             "Nous vous proposons le tirage d’affiches de posters sur différents types de papier et sur adhésif grand format noir et blanc, couleur\n" +
               "affiche de présentation\n" +
               "Numérisation grand format",
@@ -184,7 +184,7 @@ export default {
           description:
             "Réalisez vos plus belles cartes de visites  avec les conseils de notre graphiste.\n" +
             "Noir et blanc ou couleur, recto  ou recto-verso elles peuvent être faites sur place dans l’heure. Pour les vernis sélectifs, pelliculage ou autre un délai de 48h est nécessaire",
-          imgSrc: require("@/assets/v2/services/visit.jpg"),
+          imgSrc: require("@/assets/v2/services/visit.webp"),
           multiple: false,
                   shortTitle: "Cadeaux",
 
@@ -215,7 +215,7 @@ export default {
             Tampons:
               "Grâce a une gamme complète de tampons professionnels, vous trouverez à coup sûr le type et le modèle de tampon encreur adapté à vos besoins"
           },
-          imgSrc: require("@/assets/v2/services/flyers.jpg"),
+          imgSrc: require("@/assets/v2/services/flyers.webp"),
           icon: require("@/assets/stamp.png"),
           id: "stamp"
         },
@@ -338,6 +338,7 @@ export default {
     width: 100%;
     max-width: 600px;
     height: auto;
+    max-height: 350px;
     border-radius: 1rem;
     margin: 0 auto;
     display: block;

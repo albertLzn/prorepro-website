@@ -1,7 +1,7 @@
 <template>
   <div >
     <div
-      class="grid paradis lg:grid-cols-5 md:grid-cols-3 grid-cols-1 md:mx-auto bg-main pt-2 py-md-5"
+      class="grid paradis lg:grid-cols-5 md:grid-cols-3 grid-cols-2 md:mx-auto bg-main pt-2 py-md-5"
     >
     
       <Category
@@ -38,34 +38,39 @@ export default {
     VCarousel, VCarouselItem, VRow,
     Category: () => import("@/components/Category")
   },
-  mounted(){
-                const nextDiv = document.getElementById('top-home')
-                nextDiv.scrollIntoView({behavior: 'smooth',  block:'center' })
-  },
+  mounted() {
+  const isMobile = window.innerWidth <= 768;
+  const targetId = isMobile ? 'logo-container' : 'top-home';
+  const targetElement = document.getElementById(targetId);
+  
+  if (targetElement) {
+    targetElement.scrollIntoView({
+      behavior: 'smooth', 
+      block: 'center'
+    });
+  }
+},
   data: () => ({
       currentMsg: 0,
       items: [
-          {
-            src: require('../assets/student.png'),
-            message: "Tarifs étudiants -20%"
-          },
-          {
-            src: require('../assets/photocopieuse.png'),
-                        message: "Commande sur place, par mail "
+      {
+        src: require('../assets/carousel/proReprofacade.jpeg'),
+        message: "Commande sur place, par mail"
+      },
+      {
+        src: require('../assets/v2/services/design.webp'),
 
-          },
-          {
-            src: require('../assets/photocouleurs.jpeg'),
-                        message: "Photocopies Couleur, Noir & blancs"
-
-          },
-            {
-            src: require('../assets/livraison.png'),
-                        message: "Service Livraison"
-
-          },
-      
-        ],
+        message: "Tarifs étudiants -20%"
+      },
+      {
+        src: require('../assets/carousel/prorepro3.jpeg'),
+        message: "Photocopies Couleur, Noir & blancs"
+      },
+      {
+        src: require('../assets/carousel/proRepro4.webp'),
+        message: "Service Livraison"
+      }
+    ],
     
   
     categories: [

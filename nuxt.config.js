@@ -17,10 +17,10 @@ export default {
 seo: {
   // Module options
   baseUrl: 'http://www.prorepro.fr/',
-  name: 'prorepro',
+  name: 'Prorepro',
   title: 'Photocopie reprographie imprimerie paris voltaire',
   templateTitle: '%name% - %title%',
-  description: '128 Boulevard Voltaire, 75011',
+  description: '128 Boulevard Voltaire, 75011 Paris',
   language: 'French'
   //...
 },

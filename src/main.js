@@ -4,8 +4,8 @@ import router from "./router";
 import "./main.css";
 import "./main.scss";
 import VueFormulate from "@braid/vue-formulate";
-import vuetify from '@/plugins/vuetify' // path to vuetify export
-import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import vuetify from '@/plugins/vuetify'
+import '@mdi/font/css/materialdesignicons.css' // Remplacer material-design-icons-iconfont
 var VueScrollTo = require('vue-scrollto');
 
 Vue.config.productionTip = false;

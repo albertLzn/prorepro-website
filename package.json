@@ -11,6 +11,7 @@
   "dependencies": {
     "@braid/vue-formulate": "^2.5.0",
     "@emailjs/browser": "^4.4.1",
+    "@mdi/font": "^7.4.47",
     "@nuxtjs/vuetify": "^1.12.1",
     "@splidejs/vue-splide": "^0.6.12",
     "axios": "^0.20.0",
