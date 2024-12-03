@@ -218,17 +218,43 @@ export default {
           id: "gift"
         },
         {
-          title: "Carte de visites Express",
+          title: "Carte de visite Express",
           description:
-            "Réalisez vos plus belles cartes de visites  avec les conseils de notre graphiste.\n" +
+            "Réalisez vos plus belles cartes de visite avec les conseils de notre graphiste.\n" +
             "Noir et blanc ou couleur, recto  ou recto-verso elles peuvent être faites sur place dans l’heure. Pour les vernis sélectifs, pelliculage ou autre un délai de 48h est nécessaire",
           imgSrc: require("@/assets/v2/services/visit.webp"),
           multiple: false,
-                  shortTitle: "Cadeaux",
+                  shortTitle: "Carte de visites",
 
           icon: require("@/assets/card.png"),
           id: "card"
         },
+        {
+title: "Développement Web Full Stack",
+shortTitle: "Développement",
+description: "Création d'applications web modernes et performantes avec une expertise full stack. Du design à la mise en production, nous développons des solutions sur mesure utilisant les dernières technologies.",
+imgSrc: require("@/assets/dev2.webp"),
+icon: require("@/assets/dev.webp"),
+multiple: true,
+otherTitle: 'Services de Développement',
+otherFormats: [
+"Applications Web React/Vue.js",
+"Dashboards & Data Viz",
+"APIs & Backend Node.js",
+"Cloud & Déploiement",
+"UI/UX Material Design",
+"Optimisation & Performance"
+],
+otherImg: require("@/assets/v2/services/dev.webp"),
+otherDescr: "Notre expertise couvre l'ensemble du cycle de développement :\n" +
+"• Création d'applications web modernes et réactives\n" +
+"• Développement de tableaux de bord et visualisations de données\n" +
+"• Conception d'APIs REST et architectures backend\n" +
+"• Déploiement cloud et intégration continue\n" +
+"• Design d'interfaces utilisateur Material Design\n" +
+"• Optimisation des performances et de l'expérience utilisateur",
+id: "dev"
+},
         {
           title: "Plastifications & Reliures",
           description:

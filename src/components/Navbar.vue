@@ -98,7 +98,7 @@ export default {
       { imgSrc: require("@/assets/design.png"), id: "design", shortTitle: "Design" },
       { imgSrc: require("@/assets/plastic.png"), id: "plastic", shortTitle: "Reliures" },
       { imgSrc: require("@/assets/poster.png"), id: "poster", shortTitle: "Posters" },
-      { imgSrc: require("@/assets/gift.png"), id: "gift", shortTitle: "Cadeaux" },
+      { imgSrc: require("@/assets/dev.webp"), id: "dev", shortTitle: "Sites web" },
       { imgSrc: require("@/assets/card.png"), id: "card", shortTitle: "Cartes" },
       { imgSrc: require("@/assets/tirage.png"), id: "tirage", shortTitle: "Photos" },
       { imgSrc: require("@/assets/mug.png"), id: "mug", shortTitle: "Mug" },

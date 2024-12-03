@@ -138,9 +138,9 @@ export default {
         shortTitle: "Posters"
       },
       {
-        imgSrc: require("@/assets/gift.png"),
-        id: "gift",
-        shortTitle: "Cadeaux"
+        imgSrc: require("@/assets/dev.webp"),
+        id: "dev",
+        shortTitle: "Sites web"
       },
       {
         imgSrc: require("@/assets/card.png"),

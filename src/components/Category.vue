@@ -59,7 +59,7 @@ export default {
         design: 'mdi-palette',
         plastic: 'mdi-book-open-variant',
         poster: 'mdi-image-size-select-actual',
-        gift: 'mdi-gift',
+        dev: 'mdi-code-braces', // Icône pour le développement
         card: 'mdi-card-account-details',
         tirage: 'mdi-camera',
         mug: 'mdi-coffee',
@@ -75,7 +75,7 @@ export default {
         design: 'Création graphique personnalisée',
         plastic: 'Reliures professionnelles tout formats',
         poster: 'Posters haute définition',
-        gift: 'Objets personnalisés uniques',
+        dev: "Création Sites web & App mobiles",
         card: 'Cartes de visite premium',
         tirage: 'Tirages photo professionnels',
         mug: 'Mugs personnalisés résistants',
