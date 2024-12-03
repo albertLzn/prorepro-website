@@ -8,29 +8,29 @@
 
         <div class="navbar-links" :class="{ 'hidden': isMobile }">
           <template v-for="item in menuItems">
-            <div v-if="item.name === 'Nos services'" class="nav-item-wrapper" @mouseover="showDropdown = true" @mouseleave="showDropdown = false">
-              <router-link :to="item.path" class="nav-link" :class="{ 'active': $route.path === item.path }">
-                <v-icon left>{{ item.icon }}</v-icon>
-                {{ item.name }}
-              </router-link>
-              <div v-show="showDropdown" class="services-dropdown">
-                <div class="dropdown-grid">
-                  <Category v-for="category in categories" :key="category.id" v-bind="category" :isNav="true"/>
-                </div>
-              </div>
-            </div>
-            <router-link v-else :to="item.path" class="nav-link" :class="{ 'active': $route.path === item.path }">
+            <ServiceMenu 
+            :to="item.path" 
+              v-if="item.name === 'Nos services'"
+              :key="item.path"
+              :is-mobile="false"
+            />
+            <router-link 
+              v-else 
+              :to="item.path" 
+              class="nav-link" 
+              :class="{ 'active': $route.path === item.path }"
+            >
               <v-icon left>{{ item.icon }}</v-icon>
               {{ item.name }}
             </router-link>
           </template>
         </div>
 
-
         <button 
           class="hamburger"
           :class="{ 'hidden': !isMobile, 'is-active': isDrawerOpen }"
-          @click="toggleDrawer">
+          @click="toggleDrawer"
+        >
           <span></span>
           <span></span>
           <span></span>
@@ -41,23 +41,32 @@
     <transition name="drawer">
       <div v-if="isDrawerOpen && isMobile" class="mobile-drawer">
         <div class="drawer-header">
-          <img src="../assets/proreprologo2024.png" loading="lazy"  title="Pro Repro Icon" alt="Pro Repro" class="logo-small"/>
+          <img src="../assets/proreprologo2024.png" loading="lazy" title="Pro Repro Icon" alt="Pro Repro" class="logo-small"/>
           <v-btn icon @click="toggleDrawer">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </div>
         
         <div class="drawer-links">
-          <router-link 
-            v-for="item in menuItems" 
-            :key="item.path"
-            :to="item.path"
-            class="drawer-link"
-            :class="{ 'active': $route.path === item.path }"
-            @click="toggleDrawer">
-            <v-icon left>{{ item.icon }}</v-icon>
-            {{ item.name }}
-          </router-link>
+          <template v-for="item in menuItems">
+            <ServiceMenu 
+              v-if="item.name === 'Nos services'"
+              :key="item.path"
+              :is-mobile="true"
+              @category-click="toggleDrawer"
+            />
+            <router-link 
+              v-else
+              :key="item.path"
+              :to="item.path"
+              class="drawer-link"
+              :class="{ 'active': $route.path === item.path }"
+              @click="toggleDrawer"
+            >
+              <v-icon left>{{ item.icon }}</v-icon>
+              {{ item.name }}
+            </router-link>
+          </template>
         </div>
       </div>
     </transition>
@@ -65,47 +74,45 @@
     <div 
       v-if="isDrawerOpen && isMobile" 
       class="drawer-overlay"
-      @click="toggleDrawer">
+      @click="toggleDrawer"
+    >
     </div>
   </div>
 </template>
 
 <script>
 import Category from './Category.vue'
-import { VIcon, VBtn } from 'vuetify/lib'
-
+import ServiceMenu from './ServiceMenu.vue'
+import { VIcon, VBtn, VMenu, VCard, VCardText, VRow, VCol, VExpansionPanels, VExpansionPanel, VExpansionPanelHeader, VExpansionPanelContent } from 'vuetify/lib'
 export default {
   name: 'Navbar',
   components: {
     Category,
+    ServiceMenu,
     VIcon,
-    VBtn
+    VBtn,
+    VMenu,
+    VCard,
+    VCardText,
+    VRow,
+    VCol,
+    VExpansionPanels,
+    VExpansionPanel,
+    VExpansionPanelHeader,
+    VExpansionPanelContent
   },
   data: () => ({
     isDrawerOpen: false,
     hasScrolled: false,
     isMobile: false,
-    showDropdown: false,
     menuItems: [
       { name: 'Accueil', path: '/', icon: 'mdi-home' },
       { name: 'Nos services', path: '/service', icon: 'mdi-briefcase' },
       { name: 'Devis en ligne', path: '/invoice', icon: 'mdi-file-document' },
       { name: 'Contact', path: '/contact', icon: 'mdi-email' }
-    ],
-    categories: [
-      { imgSrc: require("@/assets/copy.png"), id: "copy", shortTitle: "Photo\ncopies" },
-      { imgSrc: require("@/assets/affiche.png"), id: "affiche", shortTitle: "Affiches" },
-      { imgSrc: require("@/assets/design.png"), id: "design", shortTitle: "Design" },
-      { imgSrc: require("@/assets/plastic.png"), id: "plastic", shortTitle: "Reliures" },
-      { imgSrc: require("@/assets/poster.png"), id: "poster", shortTitle: "Posters" },
-      { imgSrc: require("@/assets/dev.webp"), id: "dev", shortTitle: "Sites web" },
-      { imgSrc: require("@/assets/card.png"), id: "card", shortTitle: "Cartes" },
-      { imgSrc: require("@/assets/tirage.png"), id: "tirage", shortTitle: "Photos" },
-      { imgSrc: require("@/assets/mug.png"), id: "mug", shortTitle: "Mug" },
-      { imgSrc: require("@/assets/stamp.png"), id: "stamp", shortTitle: "Tampons" }
     ]
   }),
-
+  
   mounted() {
     this.checkMobile()
     window.addEventListener('scroll', this.handleScroll)
@@ -122,9 +129,11 @@ export default {
       this.isDrawerOpen = !this.isDrawerOpen
       document.body.style.overflow = this.isDrawerOpen ? 'hidden' : ''
     },
+    
     handleScroll() {
       this.hasScrolled = window.scrollY > 50
     },
+    
     checkMobile() {
       this.isMobile = window.innerWidth < 768
       if (!this.isMobile) {
@@ -136,53 +145,18 @@ export default {
 }
 </script>
 
-
 <style lang="scss" scoped>
-
-
-.services-dropdown {
-  position: absolute;
-  top: calc(100% - 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  border-radius: 1rem;
-  padding: 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  min-width: 600px;
-  margin-top: 0.5rem;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid white;
-  }
-}
-
-.dropdown-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
-}
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  background-color: rgba(237, 187, 208, 0.75); /* Rose pastel */
-
-backdrop-filter: blur(10px);
+  background-color: rgba(237, 187, 208, 0.75);
+  backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   border-bottom: 1px solid rgba(104, 201, 186, 0.1);
-
+  
   &.navbar-scrolled {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     background: rgba(255, 255, 255, 0.98);
@@ -208,15 +182,6 @@ backdrop-filter: blur(10px);
   gap: 2rem;
 }
 
-.nav-item-wrapper {
-  position: relative;
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-
-
 .nav-link {
   height: 100%;
   display: flex;
@@ -241,18 +206,20 @@ backdrop-filter: blur(10px);
     transition: width 0.3s ease;
   }
 
-  &:hover, &.active {
+  &:hover,
+  &.active {
     color: #68c9ba;
+    
     .v-icon {
       color: #68c9ba;
     }
+    
     &::after {
       width: 80%;
     }
   }
 }
 
-// Hamburger
 .hamburger {
   display: none;
   flex-direction: column;
@@ -279,22 +246,19 @@ backdrop-filter: blur(10px);
     transform-origin: 1px;
   }
 
-  &.is-active {
-    span {
-      &:first-child {
-        transform: rotate(45deg);
-      }
-      &:nth-child(2) {
-        opacity: 0;
-      }
-      &:nth-child(3) {
-        transform: rotate(-45deg);
-      }
+  &.is-active span {
+    &:first-child {
+      transform: rotate(45deg);
+    }
+    &:nth-child(2) {
+      opacity: 0;
+    }
+    &:nth-child(3) {
+      transform: rotate(-45deg);
     }
   }
 }
 
-// Mobile Drawer
 .mobile-drawer {
   position: fixed;
   top: 0;
@@ -316,7 +280,6 @@ backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(104, 201, 186, 0.1);
 }
 
-
 .drawer-links {
   padding-top: 1rem;
   display: flex;
@@ -332,9 +295,12 @@ backdrop-filter: blur(10px);
   text-decoration: none;
   border-radius: 0.5rem;
   transition: all 0.3s ease;
-  &:hover, &.active {
+
+  &:hover,
+  &.active {
     background: rgba(104, 201, 186, 0.1);
     color: #68c9ba;
+    
     .v-icon {
       color: #68c9ba;
     }
@@ -351,7 +317,6 @@ backdrop-filter: blur(10px);
   z-index: 1000;
 }
 
-// Animations
 .drawer-enter-active,
 .drawer-leave-active {
   transition: transform 0.3s ease;

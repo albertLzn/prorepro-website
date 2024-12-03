@@ -4,13 +4,13 @@ import router from "./router";
 import "./main.css";
 import "./main.scss";
 import VueFormulate from "@braid/vue-formulate";
-import vuetify from '@/plugins/vuetify'
-import '@mdi/font/css/materialdesignicons.css' // Remplacer material-design-icons-iconfont
-var VueScrollTo = require('vue-scrollto');
+import vuetify from './plugins/vuetify'
+import '@mdi/font/css/materialdesignicons.css'
+import VueScrollTo from 'vue-scrollto';
 
 Vue.config.productionTip = false;
 Vue.use(VueFormulate);
-Vue.use(VueScrollTo)
+Vue.use(VueScrollTo);
 
 new Vue({
   router,

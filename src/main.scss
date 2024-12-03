@@ -17,3 +17,12 @@ html, body {
 .v-carousel {
   border-radius: 15px !important;
 }
+
+
+.v-application {
+  .v-application--wrap {
+    min-height: unset !important;
+    max-width: 100%;
+    display: block;
+  }
+}
