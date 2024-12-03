@@ -103,7 +103,7 @@
         { id: "affiche", shortTitle: "Affiches" },
         { id: "design", shortTitle: "Design" },
         { id: "plastic", shortTitle: "Reliures" },
-        { id: "poster", shortTitle: "Posters" },
+        // { id: "poster", shortTitle: "Posters" },
         { id: "dev", shortTitle: "Sites web" },
         { id: "card", shortTitle: "Cartes" },
         { id: "tirage", shortTitle: "Photos" },

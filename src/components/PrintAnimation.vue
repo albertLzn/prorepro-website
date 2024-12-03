@@ -68,6 +68,9 @@
         ]
       }
     },
+    mounted() {
+      this.startPrintAnimation();
+    },
     computed: {
       currentQuote() {
         return this.quotes[this.currentQuoteIndex];

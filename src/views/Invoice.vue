@@ -13,10 +13,11 @@
         v-model="form.siret"
         type="text"
         label="N° SIRET"
-        validation="length:14"
-        :validation-messages="{
-          length: 'Le numéro SIRET doit contenir 14 chiffres'
-        }"
+        validation="min:14,length|max:14,length"
+  :validation-messages="{ 
+    min: 'Le numéro SIRET doit contenir 14 chiffres',
+    max: 'Le numéro SIRET doit contenir 14 chiffres'
+  }"
         class="form-input"
       />
       <FormulateInput
@@ -132,14 +133,20 @@
         aria-required="true"
       />
       <FormulateInput
-        v-model="form.files"
-        type="file"
-        label="Vos fichiers"
-        multiple
-        accept=".pdf,.ai,.eps,.jpg,.png"
-        help="Formats acceptés : PDF, AI, EPS, JPG, PNG"
-        class="form-input"
-      />
+  v-model="form.files"
+  type="file"
+  label="Vos fichiers"
+  multiple
+  accept=".pdf,.ai,.eps,.jpg,.png"
+  help="Formats acceptés : PDF, AI, EPS, JPG, PNG"
+  class="form-input"
+  :upload-behavior="'delayed'"
+  name="files"
+  validation-name="files"
+  :uploader="() => {}"
+  :image-preview="false"
+  :upload-url="'#'"
+/>
       <FormulateInput
         v-if="form.type === 'autre'"
         v-model="form.comment"
@@ -177,7 +184,6 @@
   </main>
 </template>
 <script>
-import emailjs from 'emailjs-com';
 import PrinterSubmit from '../components/PrinterSubmit.vue'
 
 const types = [
@@ -276,8 +282,6 @@ export default {
     PrinterSubmit
   },
   mounted() {
-    emailjs.init('yzdSZ5ZiXmjUBUrYe');
-
   const topDiv = document.getElementById('page-top');
   topDiv.scrollIntoView({behavior: 'smooth', block:'start'})
 },
@@ -291,7 +295,12 @@ export default {
       form: initForm(),
       validation: initValidation(),
       sentSucceed: false,
-      sentFailed: false
+      sentFailed: false,
+      uploadOptions: {
+      uploadBehavior: 'live',
+      imageBehavior: 'preview',
+      uploadUrl: null
+    }
     };
   },
   computed: {
@@ -300,52 +309,41 @@ export default {
     }
   },
   methods: {
-    async handleSubmit() {
-  // Convertir le fichier en base64
-  let fileAttachment = null;
-  if (this.form.files && this.form.files.length > 0) {
-    const reader = new FileReader();
-    fileAttachment = await new Promise((resolve) => {
-      reader.onload = (e) => resolve(e.target.result);
-      reader.readAsDataURL(this.form.files[0]);
-    });
-  }
-
-  const formattedData = {
-    subject: "Nouveau devis",
-    from_name: this.form.name,
-    from_email: this.form.email,
-    message: `
-      Société: ${this.form.company}
-      SIRET: ${this.form.siret}
-      Adresse: ${this.form.address}
-      Code Postal: ${this.form.postalCode}
-      Ville: ${this.form.city}
-      Type de projet: ${this.form.type}
-      Quantité: ${this.form.quantity}
-      Format: ${this.form.format}
-      Date souhaitée: ${this.form.deadline}
-      Commentaire: ${this.form.comment || "Aucun"}
-    `,
-    attachment: fileAttachment // Ajout de la pièce jointe
-  };
-
+async handleSubmit() {
   try {
     this.loading = true;
-    const response = await emailjs.send(
-      'service_tlnepz8',
-      'template_kz0qb9q',
-      formattedData,
-      'yzdSZ5ZiXmjUBUrYe'
-    );
-    if (response.status === 200) {
-      this.$refs.printerSubmit.printSuccess();
-      this.form = initForm();
+    const formData = new FormData();
+    
+    if (this.form.files && this.form.files.length > 0) {
+      for (let file of this.form.files) {
+        formData.append('files', file);
+      }
+    }
+
+    Object.keys(this.form).forEach(key => {
+      if (key !== 'files') {
+        formData.append(key, this.form[key]);
+      }
+    });
+
+    const response = await fetch('https://prorepro-mailserver.onrender.com/send-email', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (response.ok) {
+      this.$nextTick(() => {
+        this.$refs.printerSubmit.printSuccess();
+      });     
+     this.form = initForm();
+    } else {
+      throw new Error('Erreur envoi');
     }
   } catch (error) {
     console.error('Erreur:', error);
-    this.$refs.printerSubmit.printFailure();
-  } finally {
+    this.$nextTick(() => {
+      this.$refs.printerSubmit.printFailure();
+    });  } finally {
     this.loading = false;
   }
 }
@@ -361,7 +359,7 @@ export default {
   backdrop-filter: blur(10px);
   border-radius: 1rem;
   padding: 1.5rem;
-  margin-bottom: 150px;
+  margin-bottom: 100px;
 }
 
 .bg-acr {

@@ -44,13 +44,13 @@
         @validation="validation.validationFile = $event.hasErrors"
       />
       <PrinterSubmit 
-  :hasErrors="hasErrors"
-  :loading="loading"
-  :form="form"
-  @submit="handleSubmit"
-  ref="printerSubmit"
-  :hasDate="true"
-/>
+        :hasErrors="hasErrors"
+        :loading="loading"
+        :form="form"
+        @submit="handleSubmit"
+        ref="printerSubmit"
+        :hasDate="true"
+      />
     </div>
     <div v-show="sentSucceed" class="validation-text text-center mt-2">
       Message envoyé !
@@ -62,7 +62,6 @@
 </template>
 
 <script>
-import emailjs from 'emailjs-com';
 import PrinterSubmit from './PrinterSubmit.vue'
 
 const initForm = () => ({
@@ -83,9 +82,6 @@ const initValidation = () => ({
 export default {
   components: {
     PrinterSubmit,
-  },
-  mounted() {
-    emailjs.init('yzdSZ5ZiXmjUBUrYe');
   },
   data: () => ({
     sent: false,
@@ -112,16 +108,26 @@ export default {
     async handleSubmit() {
       try {
         this.loading = true;
-        const response = await emailjs.send(
-          'service_tlnepz8',
-          'template_kz0qb9q',
-          this.prepareEmailData(),
-          'yzdSZ5ZiXmjUBUrYe'
-        );
+        const formData = new FormData();
+        
+        formData.append('name', this.form.name);
+        formData.append('email', this.form.email);
+        formData.append('subject', this.form.subject || 'Sans objet');
+        formData.append('message', this.form.message);
+        
+        if (this.form.file) {
+          formData.append('files', this.form.file.files[0]);
+        }
 
-        if (response.status === 200) {
+        const response = await fetch('https://prorepro-mailserver.onrender.com/send-email', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (response.ok) {
           this.$refs.printerSubmit.printSuccess();
           this.form = initForm();
+          this.sentSucceed = true;
         } else {
           throw new Error('Erreur lors de l\'envoi');
         }
@@ -132,15 +138,6 @@ export default {
       } finally {
         this.loading = false;
       }
-    },
-    prepareEmailData() {
-      return {
-        from_name: this.form.name,
-        from_email: this.form.email,
-        subject: this.form.subject || 'Sans objet',
-        message: this.form.message,
-        file: this.form.file ? this.form.file.files[0].name : 'Aucun fichier'
-      };
     }
   }
 };
@@ -150,7 +147,6 @@ export default {
 .contact-form-box {
   width: 350px;
   max-width: 100%;
-  margin-bottom: 150px;
   margin-top: 50px;
 }
 

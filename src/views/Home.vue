@@ -132,11 +132,11 @@ export default {
         id: "plastic",
         shortTitle: "Reliures"
       },
-      {
-        imgSrc: require("@/assets/poster.png"),
-        id: "poster",
-        shortTitle: "Posters"
-      },
+      // {
+      //   imgSrc: require("@/assets/poster.png"),
+      //   id: "poster",
+      //   shortTitle: "Posters"
+      // },
       {
         imgSrc: require("@/assets/dev.webp"),
         id: "dev",

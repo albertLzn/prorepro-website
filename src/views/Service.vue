@@ -99,7 +99,7 @@ export default {
         "@context": "https://schema.org",
         "@type": "Service",
         "name": 'Photocopies & Impressions, Posters, Création graphique PAO, Affiches Grands Formats, Posters, Plans, Impression sur mug, Carte de visites Express, Plastifications & Reliures, Flyers et Tampons, Tirage photos, Impression sur mug',
-        "description": "Photocopies, Toutes Impressions, Posters, Création graphique PAO, Affiches Grands Formats, Posters, Plans, Impression sur mug, Carte de visites Express, Plastifications & Reliures, Flyers et Tampons, Tirage photos, Impression sur mug",
+        "description": "Photocopies, Toutes Impressions, Posters, Création graphique PAO, Affiches Grands Formats, Posters, Plans, Impression sur mug, Carte de visites Express, Plastifications & Reliures, Flyers et Tampons, Tirage photos, Impression sur mug, Développement sites Web App mobile",
         "provider": {
           "@type": "LocalBusiness",
           "name": "Pro Repro Paris"
@@ -202,21 +202,6 @@ export default {
           id: "affiche"
         },
 
-        {
-          title: "Impression sur mug",
-                  shortTitle: "Posters",
-          description:
-            "Nous vous proposons le tirage d'affiches et de posters en grands formats, noir & blanc ou en couleurs, sur divers types de papiers",
-          imgSrc: require("@/assets/v2/services/mug.jpg"),
-          icon: require("@/assets/gift.png"),          multiple: true,
-          otherTitle: 'Affiche & Posters',
-          otherFormats: ["A2 42 x 59,4 cm", "A1 59,4 x 84 cm", "A0 84 x 118,8 cm"],
-          otherImg: require("@/assets/v2/services/poster.webp"),
-          otherDescr:             "Nous vous proposons le tirage d’affiches de posters sur différents types de papier et sur adhésif grand format noir et blanc, couleur\n" +
-              "affiche de présentation\n" +
-              "Numérisation grand format",
-          id: "gift"
-        },
         {
           title: "Carte de visite Express",
           description:

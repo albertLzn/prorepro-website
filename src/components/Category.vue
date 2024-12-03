@@ -74,7 +74,6 @@ export default {
         affiche: 'Affiches grands formats',
         design: 'Création graphique personnalisée',
         plastic: 'Reliures professionnelles tout formats',
-        poster: 'Posters haute définition',
         dev: "Création Sites web & App mobiles",
         card: 'Cartes de visite premium',
         tirage: 'Tirages photo professionnels',
