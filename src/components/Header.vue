@@ -51,17 +51,18 @@
       </div>
     </div>
 
-    <!-- Titre et contact -->
     <div class="header-info">
-      <h1 class="main-title mb-5">
-        Photocopie - Reprographie - Imprimerie - Toutes impressions
-      </h1>
-      <div class="contact-info">
-        <span @click="goToMaps">128 Boulevard Voltaire, 75011</span>
-        <span @click="$router.push('/contact')">contact@prorepro.fr</span>
-        <a href="tel:0183912352">01 83 91 23 52</a>
-      </div>
-    </div>
+  <h1 class="main-title mb-5">
+    Photocopie - Reprographie - Imprimerie - Toutes impressions
+  </h1>
+  <h2 class="subtitle" >DE LA CONCEPTION À LA RÉALISATION</h2>
+  <div class="contact-info">
+    <span @click="goToMaps">128 Boulevard Voltaire, 75011</span>
+    <span @click="$router.push('/contact')">contact@prorepro.fr</span>
+    <a href="tel:0183912352">01 83 91 23 52</a>
+  </div>
+</div>
+
 
     <!-- Carousel Mobile -->
 <div class="mobile-carousel">
@@ -107,7 +108,7 @@ export default {
         message: "Commande sur place, par mail"
       },
       {
-        src: require('../assets/v2/services/design.webp'),
+        src: require('../assets/v2/services/visit.webp'),
 
         message: "Tarifs étudiants -20%"
       },
@@ -301,6 +302,15 @@ export default {
     font-size: 1.8rem;
     padding-top: 35px;
   }
+}
+
+.subtitle {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+
+
 }
   
   .contact-info {

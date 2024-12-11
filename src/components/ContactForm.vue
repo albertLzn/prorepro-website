@@ -34,15 +34,15 @@
         }"
       />
       <FormulateInput
-        label="Envoyer un fichier"
-        type="file"
-        name="file"
-        upload-behavior="delayed"
-        v-model="form.file"
-        validation="mime:image/jpeg,image/png,image/jpg,application/pdf"
-        help="Formats acceptés: jpeg, png, jpg, pdf"
-        @validation="validation.validationFile = $event.hasErrors"
-      />
+  label="Envoyer un fichier"
+  type="file"
+  name="file"
+  v-model="form.file"
+  validation="mime:image/jpeg,image/png,image/jpg,application/pdf"
+  help="Formats acceptés: jpeg, png, jpg, pdf"
+  @validation="validation.validationFile = $event.hasErrors"
+/>
+
       <PrinterSubmit 
         :hasErrors="hasErrors"
         :loading="loading"
@@ -110,15 +110,16 @@ export default {
         this.loading = true;
         const formData = new FormData();
         
-        formData.append('name', this.form.name);
-        formData.append('email', this.form.email);
-        formData.append('subject', this.form.subject || 'Sans objet');
-        formData.append('message', this.form.message);
         
-        if (this.form.file) {
-          formData.append('files', this.form.file.files[0]);
-        }
-
+     // Modification de la gestion du fichier
+     if (this.form.file && this.form.file.length > 0) {
+      formData.append('files', this.form.file[0]);
+    }
+    formData.append('name', this.form.name);
+    formData.append('email', this.form.email);
+    formData.append('subject', this.form.subject || 'Sans objet');
+    formData.append('message', this.form.message);
+    
         const response = await fetch('https://prorepro-mailserver.onrender.com/send-email', {
           method: 'POST',
           body: formData

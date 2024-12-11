@@ -157,7 +157,7 @@ export default {
             "A3 29,70 x 42 cm",
             "SRA3 32 x 45 cm"
           ],
-          imgSrc: require("@/assets/carousel/prorepro2.jpeg"),
+          imgSrc: require("@/assets/v2/services/photocopie.jpg"),
           id: "copy",
           icon: require("@/assets/copy.png"),
           multiple: false,
@@ -169,7 +169,7 @@ export default {
               "Nous vous proposons le tirage d’affiches de posters sur différents types de papier et sur adhésif grand format noir et blanc, couleur\n" +
               "affiche de présentation\n" +
               "Numérisation grand format",
-          imgSrc: require("@/assets/v2/services/poster.webp"),
+          imgSrc: require("@/assets/v2/services/poster.jpg"),
           icon: require("@/assets/poster.png"),
           id: "poster",
           formats: ['A2 42 x 59,4 cm', 'A1 59,4 x 84 cm', 'A4 21x 29, 70 cm', "A0 84 x 118,8 cm"]
@@ -180,7 +180,7 @@ export default {
           description:
             "Créez l’identité visuelle de votre société ,démarquez-vous avec des supports de communication personnalisés et créatifs.\n" +
             "Conception de Logo, cartes de visite, flyers, brochures, cartons d’invitation, faire-part, documents commerciaux, livrets.",
-          imgSrc: require("@/assets/v2/services/design.webp"),
+          imgSrc: require("@/assets/v2/services/graphisme.jpg"),
           icon: require("@/assets/design.png"),
           multiple: false,
 
@@ -195,7 +195,7 @@ export default {
             "Numérisation. Grands formats\n",
 
           formats: ["A2 42 x 59,4 cm", "A1 59,4 x 84 cm", "A0 84 x 118,8 cm"],
-          imgSrc: require("@/assets/v2/services/affiche.webp"),
+          imgSrc: require("@/assets/v2/services/affiche.jpg"),
           icon: require("@/assets/affiche.png"),
           multiple: false,
 
@@ -264,7 +264,7 @@ id: "dev"
             Tampons:
               "Grâce a une gamme complète de tampons professionnels, vous trouverez à coup sûr le type et le modèle de tampon encreur adapté à vos besoins"
           },
-          imgSrc: require("@/assets/v2/services/flyers.webp"),
+          imgSrc: require("@/assets/v2/services/flyers.jpg"),
           icon: require("@/assets/stamp.png"),
           id: "stamp"
         },

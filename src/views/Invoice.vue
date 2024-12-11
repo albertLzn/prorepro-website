@@ -140,13 +140,10 @@
   accept=".pdf,.ai,.eps,.jpg,.png"
   help="Formats acceptés : PDF, AI, EPS, JPG, PNG"
   class="form-input"
-  :upload-behavior="'delayed'"
   name="files"
   validation-name="files"
-  :uploader="() => {}"
-  :image-preview="false"
-  :upload-url="'#'"
 />
+
       <FormulateInput
         v-if="form.type === 'autre'"
         v-model="form.comment"
@@ -313,13 +310,12 @@ async handleSubmit() {
   try {
     this.loading = true;
     const formData = new FormData();
-    
-    if (this.form.files && this.form.files.length > 0) {
-      for (let file of this.form.files) {
-        formData.append('files', file);
-      }
+  // Modification de la gestion des fichiers
+  if (this.form.files) {
+      Array.from(this.form.files).forEach((file, index) => {
+        formData.append(`file${index}`, file);
+      });
     }
-
     Object.keys(this.form).forEach(key => {
       if (key !== 'files') {
         formData.append(key, this.form[key]);

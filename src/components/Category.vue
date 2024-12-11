@@ -76,8 +76,8 @@ export default {
         plastic: 'Reliures professionnelles tout formats',
         dev: "Création Sites web & App mobiles",
         card: 'Cartes de visite premium',
-        tirage: 'Tirages photo professionnels',
-        mug: 'Mugs personnalisés résistants',
+        tirage: 'Tirages photos',
+        mug: 'Mugs personnalisés',
         stamp: 'Tampons sur mesure'
       }
       return descriptions[this.id] || 'Service professionnel sur mesure'
@@ -136,7 +136,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 1.4rem;
+  padding: 0.7rem;
   display: flex;
   flex-direction: column;
   align-items: center;

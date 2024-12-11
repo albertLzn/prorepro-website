@@ -42,7 +42,7 @@
         <div class="flex  p-1 fl">
           <img class="mr-2" src="@/assets/icon-phone.svg"    alt="icon-phone" title="icon-phone"       loading="lazy"
           />
-          <a href="tel:01 83 91 23 52">
+          <a style="color: white;" href="tel:01 83 91 23 52">
             01 83 91 23 52
           </a>
         </div>

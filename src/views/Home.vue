@@ -96,7 +96,7 @@ export default {
         message: "Commande sur place, par mail"
       },
       {
-        src: require('../assets/v2/services/design.webp'),
+        src: require('../assets/v2/services/graphisme.jpg'),
 
         message: "Tarifs étudiants -20%"
       },
