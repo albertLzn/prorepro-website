@@ -97,12 +97,16 @@ export default {
 
 <style lang="scss" scoped>
 .category-card {
+  
   position: relative;
-  overflow: hidden;
-  aspect-ratio: 1;
   width: 100%;
+  aspect-ratio: 1; // Assure un carré parfait
   border-radius: 50%;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   &.nav-mode {
     height: 120px; // Plus petit pour la navigation
     transform: scale(0.6); // Réduction de base
@@ -112,13 +116,31 @@ export default {
     transform: translateY(-8px);
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
   }
+  @supports not (aspect-ratio: 1) {
+    // Compatibilité pour iOS ou anciens navigateurs
+    padding-top: 100%;
+    height: 0;
+    position: relative;
+  }
+
+  &::before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+  }
 }
 
 .card-content {
-  height: 100%;
+  position: absolute; // Fixé au centre du conteneur
+  top: 0;
+  left: 0;
   width: 100%;
-  cursor: pointer;
-  border-radius: 50%;
+  height: 100%;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .image-container {
   position: relative;

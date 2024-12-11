@@ -9,11 +9,12 @@
         <div class="navbar-links" :class="{ 'hidden': isMobile }">
           <template v-for="item in menuItems">
             <ServiceMenu 
-            :to="item.path" 
-              v-if="item.name === 'Nos services'"
-              :key="item.path"
-              :is-mobile="false"
-            />
+  v-if="item.name === 'Nos services'"
+  :key="item.path"
+  :is-mobile="false"
+/>
+
+
             <router-link 
               v-else 
               :to="item.path" 
@@ -50,11 +51,13 @@
         <div class="drawer-links">
           <template v-for="item in menuItems">
             <ServiceMenu 
-              v-if="item.name === 'Nos services'"
-              :key="item.path"
-              :is-mobile="true"
-              @category-click="toggleDrawer"
-            />
+  v-if="item.name === 'Nos services'"
+  :key="item.path"
+  :is-mobile="true"
+  @close-drawer="toggleDrawer"
+/>
+
+
             <router-link 
               v-else
               :key="item.path"

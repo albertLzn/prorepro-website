@@ -17,7 +17,7 @@ export default {
     ]
   },
   build: {
-    publicPath: 'https://prorepro.fr'
+    publicPath: '/',  // Utiliser un chemin relatif au lieu d'une URL absolue
   },
   modules: [
     'nuxt-seo',
